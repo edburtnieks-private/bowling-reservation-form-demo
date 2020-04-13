@@ -5,10 +5,12 @@
 }
 
 .input {
+  background-color: var(--c-white);
   border-radius: var(--br-xxs);
   border: none;
   box-shadow: var(--bs-input);
   color: var(--c-dark);
+  font-family: inherit;
   font-size: var(--fs-base);
   outline: none;
   padding: var(--s-xs);

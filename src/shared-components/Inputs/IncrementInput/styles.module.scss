@@ -1,0 +1,40 @@
+.wrapper {
+  background-color: var(--c-white);
+  border-radius: var(--br-xxs);
+  box-shadow: var(--bs-input);
+  display: flex;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    max-width: 120px;
+  }
+}
+
+.button,
+.input {
+  box-shadow: none;
+}
+
+.button:disabled {
+  background-color: var(--c-white);
+}
+
+.input {
+  min-width: 0;
+  padding-left: var(--s-0);
+  padding-right: var(--s-0);
+  text-align: center;
+
+  &:disabled {
+    background-color: var(--c-white);
+    color: var(--c-dark);
+  }
+}
+
+.componentDisabled {
+  background-color: var(--c-lighter);
+
+  .input {
+    color: var(--c-light);
+  }
+}
