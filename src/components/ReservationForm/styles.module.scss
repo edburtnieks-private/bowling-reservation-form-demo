@@ -1,0 +1,16 @@
+.mainFields {
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.field {
+  + .field {
+    margin-top: var(--s-l);
+
+    @media (min-width: 768px) {
+      margin-top: var(--s-0);
+      margin-left: var(--s-xs);
+    } 
+  }
+}

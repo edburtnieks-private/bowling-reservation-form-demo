@@ -1,0 +1,32 @@
+.label {
+  display: block;
+  font-size: var(--fs-s);
+  padding-bottom: var(--s-xs);
+}
+
+.input {
+  border-radius: var(--br-xxs);
+  border: none;
+  box-shadow: var(--bs-input);
+  color: var(--c-dark);
+  font-size: var(--fs-base);
+  outline: none;
+  padding: var(--s-xs);
+  width: 100%;
+
+  @media(min-width: 768px) {
+    max-width: 176px;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: var(--bs-input-hover), var(--bs-input);
+  }
+
+  &:disabled {
+    background-color: var(--c-lighter);
+    box-shadow: none;
+    color: var(--c-light);
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,65 @@
+:root {
+  /* Colors */
+  --c-lighter: #e1e1e1;
+  --c-light: #ccc;
+  --c-dark: #3a3a3a;
+
+  --c-red: #f15e61;
+
+  /* Font family */
+  --ff-body: "Montserrat", sans-serif;
+
+  /* Font size */
+  --fs-base: 100%; /* 16px */
+  --fs-s: calc(0.75 * var(--fs-base)); /* 12px */
+  --fs-m: calc(0.875 * var(--fs-base)); /* 14px */
+
+  /* Line height */
+  --lh-base: 1;
+
+  /* Spacing */
+  --s-0: 0;
+  --s-base: 1em; /* 16px */
+  --s-xs: calc(0.5 * var(--s-base)); /* 8px */
+  --s-l: calc(1.5 * var(--s-base)); /* 24px */
+
+  /* Box shadows */
+  --bs-input: 0px 3px 9px var(--c-lighter);
+  --bs-input-hover: inset 0 0 0 1px var(--c-light);
+
+  /* Border radius */
+  --br-base: 1em; /* 16px */
+  --br-xxs: calc(0.25 * var(--br-base)); /* 4px */
+}
+
+html {
+  box-sizing: border-box;
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  color: var(--c-dark);
+  font-family: var(--ff-body);
+  margin: var(--s-0);
+
+  /* For presentation */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding-left: var(--s-base);
+  padding-right: var(--s-base);
+}
+
+#root {
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
