@@ -1,6 +1,6 @@
 export interface IReservationFormCss {
   mainFields: string;
-  field: string;
+  calendarWrapper: string;
 }
 declare const styles: IReservationFormCss;
 

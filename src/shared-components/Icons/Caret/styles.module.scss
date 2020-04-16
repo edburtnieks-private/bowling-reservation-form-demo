@@ -1,0 +1,51 @@
+.wrapper {
+  height: 12px;
+  position: relative;
+  width: 12px;
+
+  &::before,
+  &::after {
+    background-color: var(--c-dark);
+    content: "";
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.2s ease-out;
+    width: 7.75px;
+  }
+
+  &::before {
+    left: 0;
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    right: 0;
+    transform: rotate(-45deg);
+  }
+}
+
+.left {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: rotate(-90deg);
+}
+
+.active {
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+}
+
+.disabled {
+  &::before,
+  &::after {
+    background-color: var(--c-light);
+  }
+}

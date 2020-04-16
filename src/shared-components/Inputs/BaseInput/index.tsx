@@ -5,14 +5,14 @@ import { Error } from "../../Error";
 import styles from "./styles.module.scss";
 
 type BaseInputProps = {
-  name: string;
   id: string;
   label: string;
+  name: string;
 };
 
-const BaseInput: FC<BaseInputProps> = ({ name, id, label, children }) => (
-  <div>
-    <label className={styles.label} htmlFor={id}>
+const BaseInput: FC<BaseInputProps> = ({ id, label, name, children }) => (
+  <div className={styles.field}>
+    <label className={styles.label} htmlFor={id} data-testid="label">
       {label}
     </label>
 

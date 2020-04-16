@@ -1,0 +1,16 @@
+.wrapper {
+  transform: rotate(45deg);
+  
+  &::before,
+  &::after {
+    background-color: var(--c-dark);
+    content: '';
+    display: block;
+    height: 2px;
+    width: 16px;
+  }
+
+  &::after {
+    transform: rotate(90deg) translateX(-2px);
+  }
+}

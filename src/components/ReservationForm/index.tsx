@@ -1,29 +1,42 @@
-import React, { FC } from "react";
-import { useForm, FormContext } from "react-hook-form";
+import React, { FC, useState } from "react";
+import { useForm, FormContext, Controller } from "react-hook-form";
 
 import { TextInput } from "../../shared-components/Inputs/TextInput";
 import { IncrementInput } from "../../shared-components/Inputs/IncrementInput";
+import { Dropdown } from "../../shared-components/Inputs/Dropdown";
+import { Calendar } from "../../shared-components/Inputs/Calendar";
 
 import styles from "./styles.module.scss";
 
+import { formatDateAndTime, getStartTime } from "./utils";
 import { reservationSchema } from "./schema";
 
 type ReservationFormProps = {
-  minLaneCount?: number;
-  maxLaneCount?: number;
+  endHour: number;
+  maxLaneCount: number;
+  minLaneCount: number;
+  startHour: number;
 };
 
 type ReservationFormData = {
+  date: Date;
+  startTime: number;
   laneCount: number;
   name: string;
   phone: string;
 };
 
 const ReservationForm: FC<ReservationFormProps> = ({
-  minLaneCount = 1,
-  maxLaneCount = 10
+  endHour,
+  maxLaneCount,
+  minLaneCount,
+  startHour
 }) => {
+  const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
+
   const defaultValues: ReservationFormData = {
+    date: new Date(),
+    startTime: getStartTime(startHour, endHour),
     laneCount: minLaneCount,
     name: "",
     phone: ""
@@ -44,25 +57,37 @@ const ReservationForm: FC<ReservationFormProps> = ({
     <FormContext {...reservationFormMethods}>
       <form onSubmit={reservationFormMethods.handleSubmit(onSubmit)}>
         <div className={styles.mainFields}>
-          <div className={styles.field}>
-            <IncrementInput
-              name="laneCount"
-              id="lane-count"
-              label="Lane count"
-              minValue={minLaneCount}
-              maxValue={maxLaneCount}
-              decrementButtonLabel="Remove lane"
-              incrementButtonLabel="Add lane"
-            />
-          </div>
+          <Dropdown
+            id="date-and-time"
+            label="Date and time"
+            value={formatDateAndTime(
+              reservationFormMethods.watch("date"),
+              reservationFormMethods.watch("startTime")
+            )}
+            isOpen={isDateAndTimeDropdownOpen}
+            toggleDropdown={() =>
+              setDateAndTimeDropdown(!isDateAndTimeDropdownOpen)
+            }
+            closeDropdown={() => setDateAndTimeDropdown(false)}
+          >
+            <div className={styles.calendarWrapper}>
+              <Controller as={<Calendar name="date" />} name="date" />
+            </div>
+          </Dropdown>
 
-          <div className={styles.field}>
-            <TextInput name="name" id="name" label="Name" />
-          </div>
+          <IncrementInput
+            name="laneCount"
+            id="lane-count"
+            label="Lane count"
+            minValue={minLaneCount}
+            maxValue={maxLaneCount}
+            decrementButtonLabel="Remove lane"
+            incrementButtonLabel="Add lane"
+          />
 
-          <div className={styles.field}>
-            <TextInput name="phone" id="phone" label="Phone" type="tel" />
-          </div>
+          <TextInput name="name" id="name" label="Name" />
+
+          <TextInput name="phone" id="phone" label="Phone" type="tel" />
         </div>
 
         {/* Temporary */}

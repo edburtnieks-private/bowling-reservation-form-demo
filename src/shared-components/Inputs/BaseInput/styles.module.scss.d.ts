@@ -1,4 +1,5 @@
 export interface IBaseInputCss {
+  field: string;
   label: string;
   input: string;
 }

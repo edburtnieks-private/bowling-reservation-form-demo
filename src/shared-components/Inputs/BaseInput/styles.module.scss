@@ -1,3 +1,14 @@
+.field {
+  + .field {
+    margin-top: var(--s-l);
+
+    @media (min-width: 768px) {
+      margin-top: var(--s-0);
+      margin-left: var(--s-xs);
+    } 
+  }
+}
+
 .label {
   display: block;
   font-size: var(--fs-s);
@@ -11,7 +22,7 @@
   box-shadow: var(--bs-input);
   color: var(--c-dark);
   font-family: inherit;
-  font-size: var(--fs-base);
+  font-size: inherit;
   outline: none;
   padding: var(--s-xs);
   width: 100%;

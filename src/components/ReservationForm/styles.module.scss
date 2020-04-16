@@ -4,13 +4,11 @@
   }
 }
 
-.field {
-  + .field {
-    margin-top: var(--s-l);
+.calendarWrapper {
+  margin-bottom: var(--s-l);
 
-    @media (min-width: 768px) {
-      margin-top: var(--s-0);
-      margin-left: var(--s-xs);
-    } 
+  @media (min-width: 768px) {
+    margin-bottom: var(--s-0);
+    margin-right: var(--s-l);
   }
 }

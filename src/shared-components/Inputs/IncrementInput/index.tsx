@@ -4,34 +4,38 @@ import { useFormContext } from "react-hook-form";
 
 import { BaseInput } from "../BaseInput";
 import { InputButton } from "../InputButton";
+import { Minus } from "../../Icons/Minus";
+import { Plus } from "../../Icons/Plus";
 
 import baseInputStyles from "../BaseInput/styles.module.scss";
 import styles from "./styles.module.scss";
 
 type IncrementInputProps = {
-  name: string;
   id: string;
   label: string;
-  minValue: number;
   maxValue: number;
-  disabled?: boolean;
-  decrement?: Function;
+  minValue: number;
+  name: string;
+
   decrementButtonLabel?: string;
-  increment?: Function;
+  disabled?: boolean;
   incrementButtonLabel?: string;
+
+  decrement?: (value: number) => void;
+  increment?: (value: number) => void;
 };
 
 const IncrementInput: FC<IncrementInputProps> = ({
-  name,
   id,
   label,
-  minValue,
   maxValue,
-  disabled,
-  decrement,
+  minValue,
+  name,
   decrementButtonLabel,
-  increment,
+  disabled,
   incrementButtonLabel,
+  decrement,
+  increment,
   ...rest
 }) => {
   const { register, setValue, getValues, watch } = useFormContext();
@@ -73,7 +77,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
           disabled={disabled || +watch(name) <= minValue}
           aria-label={decrementButtonLabel}
         >
-          -
+          <Minus disabled={disabled || +watch(name) <= minValue} />
         </InputButton>
 
         <input
@@ -91,7 +95,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
           disabled={disabled || +watch(name) >= maxValue}
           aria-label={incrementButtonLabel}
         >
-          +
+          <Plus disabled={disabled || +watch(name) >= maxValue} />
         </InputButton>
       </div>
     </BaseInput>

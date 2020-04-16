@@ -5,17 +5,18 @@ import { BaseInput } from "../BaseInput";
 import styles from "../BaseInput/styles.module.scss";
 
 type BaseInputProps = {
-  type?: string;
   name: string;
   id: string;
   label: string;
+
+  type?: string;
 };
 
 const TextInput: FC<BaseInputProps> = ({
-  type = "text",
   name,
   id,
   label,
+  type = "text",
   ...rest
 }) => {
   const { register } = useFormContext();

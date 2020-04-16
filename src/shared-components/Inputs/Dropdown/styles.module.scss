@@ -1,0 +1,80 @@
+.toggle {
+  align-items: center;
+  display: flex;
+  min-width: 200px;
+  position: relative;
+}
+
+.input {
+  cursor: pointer;
+  min-width: 100%;
+  text-align: left;
+}
+
+.caret {
+  pointer-events: none;
+  position: absolute;
+  right: var(--s-xs);
+}
+
+.content {
+  display: none;
+
+  &.active {
+    background-color: var(--c-white);
+    border-radius: var(--br-xxs);
+    display: block;
+    left: 16px;
+    max-height: calc(100% - 32px);
+    overflow-y: auto;
+    padding: var(--s-base);
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: var(--zi-dropdown-content);
+
+    @media (min-width: 768px) {
+      box-shadow: var(--bs-input);
+      left: auto;
+      margin-top: var(--s-xs);
+      max-width: 100%;
+      overflow: visible;
+      position: absolute;
+      right: auto;
+      top: auto;
+    }
+  }
+}
+
+.overlay {
+  display: none;
+  
+  &.active {
+    background-color: var(--c-dark-30);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: var(--zi-dropdown-overlay);
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.closeButton {
+  padding: var(--s-m) var(--s-xs);
+  position: fixed;
+  right: 8px;
+  top: 8px;
+  width: auto;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    right: -16px;
+    top: -16px;
+  }
+}

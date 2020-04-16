@@ -1,0 +1,23 @@
+.wrapper {
+  height: 2px;
+
+  &::before,
+  &::after {
+    background-color: var(--c-dark);
+    content: '';
+    display: block;
+    height: 2px;
+    width: 10px;
+  }
+
+  &::after {
+    transform: rotate(90deg) translateX(-2px);
+  }
+}
+
+.disabled {
+  &::before,
+  &::after {
+    background-color: var(--c-light);
+  }
+}

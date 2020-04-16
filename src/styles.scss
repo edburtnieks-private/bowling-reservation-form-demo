@@ -1,10 +1,17 @@
 :root {
   /* Colors */
+  --c-white: #fff;
   --c-lighter: #e1e1e1;
   --c-light: #ccc;
+  --c-grey: #757575;
   --c-dark: #3a3a3a;
 
+  --c-green: #4cb114;
+  --c-green-darker: #3c8c10;
   --c-red: #f15e61;
+
+  /* Opacity Colors */
+  --c-dark-30: #3a3a3a4d;
 
   /* Font family */
   --ff-body: "Montserrat", sans-serif;
@@ -14,13 +21,19 @@
   --fs-s: calc(0.75 * var(--fs-base)); /* 12px */
   --fs-m: calc(0.875 * var(--fs-base)); /* 14px */
 
+  /* Font Weight */
+  --fw-regular: 400;
+
   /* Line height */
   --lh-base: 1;
 
   /* Spacing */
   --s-0: 0;
   --s-base: 1em; /* 16px */
+  --s-xxs: calc(0.25 * var(--s-base)); /* 4px */
   --s-xs: calc(0.5 * var(--s-base)); /* 8px */
+  --s-s: calc(0.75 * var(--s-base)); /* 12px */
+  --s-m: calc(0.875 * var(--s-base)); /* 14px */
   --s-l: calc(1.5 * var(--s-base)); /* 24px */
 
   /* Box shadows */
@@ -30,6 +43,10 @@
   /* Border radius */
   --br-base: 1em; /* 16px */
   --br-xxs: calc(0.25 * var(--br-base)); /* 4px */
+
+  /* Z Index */
+  --zi-dropdown-overlay: 10;
+  --zi-dropdown-content: 20;
 }
 
 html {
