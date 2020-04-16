@@ -13,7 +13,9 @@ import {
   formatDateAndTime,
   getStartDate,
   getStartTime,
-  availableTimes
+  availableTimes,
+  getDuration,
+  getMaxDuration
 } from "./utils";
 import { reservationSchema } from "./schema";
 
@@ -59,6 +61,19 @@ const ReservationForm: FC<ReservationFormProps> = ({
     validationSchema: reservationSchema
   });
 
+  const setDuration = (): void => {
+    reservationFormMethods.setValue(
+      "duration",
+      getDuration(
+        reservationFormMethods.getValues().duration,
+        getMaxDuration(
+          reservationFormMethods.getValues().startTime,
+          maxDuration
+        )
+      )
+    );
+  };
+
   const onSubmit = (data: ReservationFormData) => {
     console.log({
       ...data
@@ -103,6 +118,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   options={availableTimes(startHour, endHour)}
                   customOptionTextEnd=":00"
                   vertical
+                  onChange={setDuration}
                 />
 
                 <IncrementInput
@@ -110,7 +126,10 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   id="duration"
                   label="Duration (h)"
                   minValue={minDuration}
-                  maxValue={maxDuration}
+                  maxValue={getMaxDuration(
+                    reservationFormMethods.getValues().startTime,
+                    maxDuration
+                  )}
                   decrementButtonLabel="Remove hour"
                   incrementButtonLabel="Add hour"
                   vertical

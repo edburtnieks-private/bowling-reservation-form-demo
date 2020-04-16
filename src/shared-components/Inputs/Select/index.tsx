@@ -16,6 +16,8 @@ type SelectProps = {
 
   customOptionTextEnd?: string;
   vertical?: boolean;
+
+  onChange?: () => void;
 };
 
 const Select: FC<SelectProps> = ({
@@ -25,6 +27,7 @@ const Select: FC<SelectProps> = ({
   options,
   customOptionTextEnd,
   vertical,
+  onChange,
   ...rest
 }) => {
   const { register } = useFormContext();
@@ -37,6 +40,7 @@ const Select: FC<SelectProps> = ({
           name={name}
           id={id}
           ref={register}
+          onChange={onChange}
           {...rest}
         >
           {(options as (string | number)[]).map((option: string | number) => (

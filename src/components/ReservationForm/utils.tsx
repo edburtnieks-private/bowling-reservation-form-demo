@@ -33,4 +33,29 @@ const availableTimes = (startHour: number, endHour: number): number[] => {
   );
 };
 
-export { formatDateAndTime, getStartDate, getStartTime, availableTimes };
+const getDuration = (duration: number, maxDuration: number): number => {
+  if (duration > maxDuration) {
+    return maxDuration;
+  } else {
+    return duration;
+  }
+};
+
+const getMaxDuration = (startTime: number, maxDuration: number): number => {
+  const availableDuration = 24 - startTime;
+
+  if (availableDuration < maxDuration) {
+    return availableDuration;
+  } else {
+    return maxDuration;
+  }
+};
+
+export {
+  formatDateAndTime,
+  getStartDate,
+  getStartTime,
+  availableTimes,
+  getDuration,
+  getMaxDuration
+};
