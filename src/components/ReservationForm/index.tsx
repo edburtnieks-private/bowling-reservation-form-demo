@@ -5,10 +5,16 @@ import { TextInput } from "../../shared-components/Inputs/TextInput";
 import { IncrementInput } from "../../shared-components/Inputs/IncrementInput";
 import { Dropdown } from "../../shared-components/Inputs/Dropdown";
 import { Calendar } from "../../shared-components/Inputs/Calendar";
+import { Select } from "../../shared-components/Inputs/Select";
 
 import styles from "./styles.module.scss";
 
-import { formatDateAndTime, getStartTime } from "./utils";
+import {
+  formatDateAndTime,
+  getStartDate,
+  getStartTime,
+  availableTimes
+} from "./utils";
 import { reservationSchema } from "./schema";
 
 type ReservationFormProps = {
@@ -35,7 +41,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
 
   const defaultValues: ReservationFormData = {
-    date: new Date(),
+    date: getStartDate(startHour, endHour),
     startTime: getStartTime(startHour, endHour),
     laneCount: minLaneCount,
     name: "",
@@ -70,8 +76,28 @@ const ReservationForm: FC<ReservationFormProps> = ({
             }
             closeDropdown={() => setDateAndTimeDropdown(false)}
           >
-            <div className={styles.calendarWrapper}>
-              <Controller as={<Calendar name="date" />} name="date" />
+            <div className={styles.dateAndTimeFields}>
+              <div className={styles.calendarWrapper}>
+                <Controller
+                  as={
+                    <Calendar
+                      name="date"
+                      minDate={getStartDate(startHour, endHour)}
+                    />
+                  }
+                  name="date"
+                />
+              </div>
+
+              <div>
+                <Select
+                  name="startTime"
+                  id="start-time"
+                  label="Start time"
+                  options={availableTimes(startHour, endHour)}
+                  customOptionTextEnd=":00"
+                />
+              </div>
             </div>
           </Dropdown>
 

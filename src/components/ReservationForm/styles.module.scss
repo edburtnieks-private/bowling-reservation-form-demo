@@ -4,6 +4,12 @@
   }
 }
 
+.dateAndTimeFields {
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
 .calendarWrapper {
   margin-bottom: var(--s-l);
 

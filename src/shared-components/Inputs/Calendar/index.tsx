@@ -10,11 +10,13 @@ import "./styles.scss";
 
 type CalendarInputProps = {
   name: string;
+
+  minDate?: Date;
 };
 
-const CalendarInput = ({ name, ...rest }: CalendarInputProps) => {
+const CalendarInput = ({ name, minDate, ...rest }: CalendarInputProps) => {
   const options: CalendarProps = {
-    minDate: new Date(),
+    minDate: minDate || new Date(),
     maxDate: new Date(new Date().getFullYear(), 11, 31),
     minDetail: "year",
     showFixedNumberOfWeeks: true,

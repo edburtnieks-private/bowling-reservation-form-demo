@@ -1,0 +1,20 @@
+.wrapper {
+  position: relative;
+
+  @media (min-width: 768px) {
+    min-width: 120px;
+  }
+}
+
+.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.caret {
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 6px);
+}
