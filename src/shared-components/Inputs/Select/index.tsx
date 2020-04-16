@@ -15,6 +15,7 @@ type SelectProps = {
   options: (string | number)[];
 
   customOptionTextEnd?: string;
+  vertical?: boolean;
 };
 
 const Select: FC<SelectProps> = ({
@@ -23,12 +24,13 @@ const Select: FC<SelectProps> = ({
   name,
   options,
   customOptionTextEnd,
+  vertical,
   ...rest
 }) => {
   const { register } = useFormContext();
 
   return (
-    <BaseInput name={name} id={id} label={label}>
+    <BaseInput name={name} id={id} label={label} vertical={vertical}>
       <div className={styles.wrapper}>
         <select
           className={classNames(baseInputStyles.input, styles.select)}

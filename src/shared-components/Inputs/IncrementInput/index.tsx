@@ -20,6 +20,7 @@ type IncrementInputProps = {
   decrementButtonLabel?: string;
   disabled?: boolean;
   incrementButtonLabel?: string;
+  vertical?: boolean;
 
   decrement?: (value: number) => void;
   increment?: (value: number) => void;
@@ -34,6 +35,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
   decrementButtonLabel,
   disabled,
   incrementButtonLabel,
+  vertical,
   decrement,
   increment,
   ...rest
@@ -65,7 +67,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
   };
 
   return (
-    <BaseInput name={name} id={id} label={label}>
+    <BaseInput name={name} id={id} label={label} vertical={vertical}>
       <div
         className={classNames(styles.wrapper, {
           [styles.componentDisabled]: disabled

@@ -19,7 +19,9 @@ import { reservationSchema } from "./schema";
 
 type ReservationFormProps = {
   endHour: number;
+  maxDuration: number;
   maxLaneCount: number;
+  minDuration: number;
   minLaneCount: number;
   startHour: number;
 };
@@ -27,6 +29,7 @@ type ReservationFormProps = {
 type ReservationFormData = {
   date: Date;
   startTime: number;
+  duration: number;
   laneCount: number;
   name: string;
   phone: string;
@@ -34,7 +37,9 @@ type ReservationFormData = {
 
 const ReservationForm: FC<ReservationFormProps> = ({
   endHour,
+  maxDuration,
   maxLaneCount,
+  minDuration,
   minLaneCount,
   startHour
 }) => {
@@ -43,6 +48,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   const defaultValues: ReservationFormData = {
     date: getStartDate(startHour, endHour),
     startTime: getStartTime(startHour, endHour),
+    duration: minDuration,
     laneCount: minLaneCount,
     name: "",
     phone: ""
@@ -96,6 +102,18 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   label="Start time"
                   options={availableTimes(startHour, endHour)}
                   customOptionTextEnd=":00"
+                  vertical
+                />
+
+                <IncrementInput
+                  name="duration"
+                  id="duration"
+                  label="Duration (h)"
+                  minValue={minDuration}
+                  maxValue={maxDuration}
+                  decrementButtonLabel="Remove hour"
+                  incrementButtonLabel="Add hour"
+                  vertical
                 />
               </div>
             </div>

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import classNames from "classnames";
 import { ErrorMessage } from "react-hook-form";
 
 import { Error } from "../../Error";
@@ -8,10 +9,18 @@ type BaseInputProps = {
   id: string;
   label: string;
   name: string;
+
+  vertical?: boolean;
 };
 
-const BaseInput: FC<BaseInputProps> = ({ id, label, name, children }) => (
-  <div className={styles.field}>
+const BaseInput: FC<BaseInputProps> = ({
+  id,
+  label,
+  name,
+  vertical,
+  children
+}) => (
+  <div className={classNames(styles.field, { [styles.vertical]: vertical })}>
     <label className={styles.label} htmlFor={id} data-testid="label">
       {label}
     </label>
