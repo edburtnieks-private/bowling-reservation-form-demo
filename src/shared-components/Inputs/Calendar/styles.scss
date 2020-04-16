@@ -92,6 +92,7 @@
 .react-calendar__navigation button[disabled] {
   background: none;
   color: var(--c-light);
+  cursor: not-allowed;
 }
 
 .react-calendar__month-view__weekdays {
