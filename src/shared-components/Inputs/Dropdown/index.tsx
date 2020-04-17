@@ -74,7 +74,7 @@ const Dropdown: FC<DropdownProps> = ({
           <Caret
             className={styles.caret}
             active={isOpen}
-            right={(position = "right")}
+            right={position === "right"}
           />
         </InputButton>
       )}
