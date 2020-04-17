@@ -17,7 +17,7 @@ type DropdownProps = {
 
   className?: string;
   id?: string;
-  position?: string;
+  position?: "bottom" | "right";
   value?: string;
 };
 
