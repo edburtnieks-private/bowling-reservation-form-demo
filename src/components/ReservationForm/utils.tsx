@@ -8,11 +8,13 @@ const formatDateAndTime = (date: Date, startTime: number): string => {
 const getStartDate = (startHour: number, endHour: number): Date => {
   const today = new Date();
   const tomorrow = new Date(new Date().setDate(today.getDate() + 1));
+  const currentHour = new Date().getHours();
+  const nextHour = currentHour + 1;
 
   if (today.getHours() < startHour) {
     return today;
   } else {
-    if (today.getHours() >= startHour && today.getHours() < endHour) {
+    if (currentHour >= startHour && nextHour < endHour) {
       return today;
     } else {
       return tomorrow;
@@ -21,9 +23,10 @@ const getStartDate = (startHour: number, endHour: number): Date => {
 };
 
 const getStartTime = (startHour: number, endHour: number): number => {
-  const nextHour = new Date().getHours() + 1;
+  const currentHour = new Date().getHours();
+  const nextHour = currentHour + 1;
 
-  if (nextHour >= startHour && nextHour < endHour) {
+  if (currentHour >= startHour && nextHour < endHour) {
     return nextHour;
   } else {
     return startHour;

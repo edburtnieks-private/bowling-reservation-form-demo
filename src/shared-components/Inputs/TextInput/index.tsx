@@ -9,6 +9,7 @@ type BaseInputProps = {
   id: string;
   label: string;
 
+  fieldArray?: boolean;
   type?: string;
   vertical?: boolean;
 };
@@ -17,6 +18,7 @@ const TextInput: FC<BaseInputProps> = ({
   name,
   id,
   label,
+  fieldArray,
   type = "text",
   vertical,
   ...rest
@@ -30,7 +32,7 @@ const TextInput: FC<BaseInputProps> = ({
         type={type}
         name={name}
         id={id}
-        ref={register}
+        ref={fieldArray ? register() : register}
         {...rest}
       />
     </BaseInput>

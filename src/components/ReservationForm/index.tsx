@@ -1,4 +1,4 @@
-import React, { Fragment, FC, useState } from "react";
+import React, { Fragment, FC, ChangeEvent, useState } from "react";
 import {
   useForm,
   useFieldArray,
@@ -75,7 +75,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
     phone: "",
     lanes: [],
     playerCount: 2,
-    players: Array(2).fill(""),
+    players: Array(2).fill({ name: "" }),
     isShoes: true,
     shoeCount: 2
   };
@@ -117,7 +117,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   };
 
   const onLanesChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>,
     index: number
   ): void => {
     if (event.target.checked) {
@@ -129,10 +129,20 @@ const ReservationForm: FC<ReservationFormProps> = ({
 
   const decrementPlayerCount = (value: number): void => {
     removePlayer(value - 1);
+
+    reservationFormMethods.setValue(
+      "shoeCount",
+      +reservationFormMethods.getValues().shoeCount - 1
+    );
   };
 
   const incrementPlayerCount = () => {
     appendPlayer({ name: "players" });
+
+    reservationFormMethods.setValue(
+      "shoeCount",
+      +reservationFormMethods.getValues().shoeCount + 1
+    );
   };
 
   const onSubmit = (data: ReservationFormData) => {
@@ -260,7 +270,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                       <Checkbox name="isShoes" id="is-shoes" label="Shoes" />
                     }
                     minValue={minPlayerCount}
-                    maxValue={maxPlayerCount}
+                    maxValue={reservationFormMethods.getValues().playerCount}
                     disabled={!reservationFormMethods.getValues().isShoes}
                   />
                 </div>
@@ -273,10 +283,11 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   return (
                     <TextInput
                       key={index}
-                      name={`players[${index}]`}
+                      name={`players[${index}].name`}
                       id={`player-${playerIndex}`}
                       label={`Player ${playerIndex}`}
                       vertical
+                      fieldArray
                     />
                   );
                 })}
