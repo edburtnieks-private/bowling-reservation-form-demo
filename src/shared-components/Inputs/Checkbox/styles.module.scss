@@ -20,6 +20,13 @@
       border-left: 1px solid;
     }
   }
+
+  &:hover,
+  &:focus {
+    + .label {
+      text-decoration: underline;
+    }
+  }
 }
 
 .customCheckbox {
