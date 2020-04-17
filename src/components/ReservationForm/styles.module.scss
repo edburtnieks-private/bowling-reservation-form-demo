@@ -35,3 +35,19 @@
     margin-bottom: var(--s-0);
   }
 }
+
+.moreDetailsDropdownContent {
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.laneInfo {
+  margin-bottom: var(--s-l);
+  margin-top: var(--s-l);
+
+  @media (min-width: 768px) {
+    display: flex;
+    margin-bottom: var(--s-0);
+  }
+}

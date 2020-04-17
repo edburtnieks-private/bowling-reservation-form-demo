@@ -55,11 +55,16 @@ const getMaxDuration = (startTime: number, maxDuration: number): number => {
   }
 };
 
+const getLanes = (maxLaneCount: number): number[] => {
+  return Array.from(Array(maxLaneCount), (_, index) => index + 1);
+};
+
 export {
   formatDateAndTime,
   getStartDate,
   getStartTime,
   availableTimes,
   getDuration,
-  getMaxDuration
+  getMaxDuration,
+  getLanes
 };

@@ -1,4 +1,12 @@
 .field {
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
+
+  &.vertical {
+    display: block;
+  }
+
   + .field {
     margin-top: var(--s-l);
 

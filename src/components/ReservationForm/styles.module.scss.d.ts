@@ -1,9 +1,11 @@
 export interface IReservationFormCss {
-  mainFields: string;
-  dateAndTimeFields: string;
   calendarWrapper: string;
+  dateAndTimeFields: string;
   footer: string;
+  laneInfo: string;
+  mainFields: string;
   moreDetailsDropdown: string;
+  moreDetailsDropdownContent: string;
 }
 declare const styles: IReservationFormCss;
 

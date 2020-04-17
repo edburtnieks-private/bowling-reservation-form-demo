@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import classNames from "classnames";
 import { ErrorMessage } from "react-hook-form";
 
@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 type BaseInputProps = {
   id: string;
-  label: string;
+  label: ReactNode;
   name: string;
 
   vertical?: boolean;

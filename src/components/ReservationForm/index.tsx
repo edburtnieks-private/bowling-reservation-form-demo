@@ -1,11 +1,17 @@
-import React, { FC, useState } from "react";
-import { useForm, FormContext, Controller } from "react-hook-form";
+import React, { Fragment, FC, useState } from "react";
+import {
+  useForm,
+  useFieldArray,
+  FormContext,
+  Controller
+} from "react-hook-form";
 
 import { TextInput } from "../../shared-components/Inputs/TextInput";
 import { IncrementInput } from "../../shared-components/Inputs/IncrementInput";
 import { Dropdown } from "../../shared-components/Inputs/Dropdown";
 import { Calendar } from "../../shared-components/Inputs/Calendar";
 import { Select } from "../../shared-components/Inputs/Select";
+import { Checkbox } from "../../shared-components/Inputs/Checkbox";
 
 import styles from "./styles.module.scss";
 
@@ -15,7 +21,8 @@ import {
   getStartTime,
   availableTimes,
   getDuration,
-  getMaxDuration
+  getMaxDuration,
+  getLanes
 } from "./utils";
 import { reservationSchema } from "./schema";
 
@@ -23,9 +30,12 @@ type ReservationFormProps = {
   endHour: number;
   maxDuration: number;
   maxLaneCount: number;
+  maxPlayerCount: number;
   minDuration: number;
   minLaneCount: number;
+  minPlayerCount: number;
   startHour: number;
+  totalLaneCount: number;
 };
 
 type ReservationFormData = {
@@ -35,15 +45,23 @@ type ReservationFormData = {
   laneCount: number;
   name: string;
   phone: string;
+  lanes: Object[];
+  playerCount: number;
+  players: string[];
+  isShoes: boolean;
+  shoeCount: number;
 };
 
 const ReservationForm: FC<ReservationFormProps> = ({
   endHour,
   maxDuration,
   maxLaneCount,
+  maxPlayerCount,
   minDuration,
   minLaneCount,
-  startHour
+  minPlayerCount,
+  startHour,
+  totalLaneCount
 }) => {
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
   const [isMoreDetailsDropdownOpen, setMoreDetailsDropdown] = useState(false);
@@ -54,12 +72,35 @@ const ReservationForm: FC<ReservationFormProps> = ({
     duration: minDuration,
     laneCount: minLaneCount,
     name: "",
-    phone: ""
+    phone: "",
+    lanes: [],
+    playerCount: 2,
+    players: Array(2).fill(""),
+    isShoes: true,
+    shoeCount: 2
   };
 
   const reservationFormMethods = useForm<ReservationFormData>({
     defaultValues,
     validationSchema: reservationSchema
+  });
+
+  const {
+    fields: lanes,
+    append: appendLane,
+    remove: removeLane
+  } = useFieldArray({
+    control: reservationFormMethods.control,
+    name: "lanes"
+  });
+
+  const {
+    fields: players,
+    append: appendPlayer,
+    remove: removePlayer
+  } = useFieldArray({
+    control: reservationFormMethods.control,
+    name: "players"
   });
 
   const setDuration = (): void => {
@@ -73,6 +114,22 @@ const ReservationForm: FC<ReservationFormProps> = ({
         )
       )
     );
+  };
+
+  const onLanesChange = (event, index: number) => {
+    if (event.target.checked) {
+      appendLane({ active: true });
+    } else {
+      removeLane(index);
+    }
+  };
+
+  const decrementPlayerCount = value => {
+    // removePlayer(value - 1);
+  };
+
+  const incrementPlayerCount = () => {
+    appendPlayer({ name: "players" });
   };
 
   const onSubmit = (data: ReservationFormData) => {
@@ -165,7 +222,63 @@ const ReservationForm: FC<ReservationFormProps> = ({
             className={styles.moreDetailsDropdown}
             position="right"
           >
-            <TextInput name="temporary" id="temporary" label="Temporary" />
+            <div className={styles.moreDetailsDropdownContent}>
+              <div>
+                <div>
+                  {getLanes(totalLaneCount).map((lane, index) => (
+                    <Fragment key={lane}>
+                      <input
+                        type="checkbox"
+                        name={`lanes[${index}].active`}
+                        id={`lane-${lane}`}
+                        ref={reservationFormMethods.register()}
+                        onChange={event => onLanesChange(event, index)}
+                      />
+                      <label htmlFor={`lane-${lane}`}>{lane}</label>
+                    </Fragment>
+                  ))}
+                </div>
+
+                <div className={styles.laneInfo}>
+                  <IncrementInput
+                    name="playerCount"
+                    id="player-count"
+                    label="Players"
+                    minValue={minPlayerCount}
+                    maxValue={maxPlayerCount}
+                    decrement={decrementPlayerCount}
+                    increment={incrementPlayerCount}
+                  />
+
+                  <IncrementInput
+                    name="shoeCount"
+                    id="shoe-count"
+                    label={
+                      <Checkbox name="isShoes" id="is-shoes" label="Shoes" />
+                    }
+                    minValue={minPlayerCount}
+                    maxValue={maxPlayerCount}
+                    disabled={!reservationFormMethods.getValues().isShoes}
+                  />
+                </div>
+              </div>
+
+              <div>
+                {players.map((_, index) => {
+                  const playerIndex = index + 1;
+
+                  return (
+                    <TextInput
+                      key={index}
+                      name={`players[${index}]`}
+                      id={`player-${playerIndex}`}
+                      label={`Player ${playerIndex}`}
+                      vertical
+                    />
+                  );
+                })}
+              </div>
+            </div>
           </Dropdown>
 
           {/* Temporary */}

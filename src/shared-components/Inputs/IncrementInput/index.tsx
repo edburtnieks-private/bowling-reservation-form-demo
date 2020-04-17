@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import classNames from "classnames";
 import { useFormContext } from "react-hook-form";
 
@@ -12,7 +12,7 @@ import styles from "./styles.module.scss";
 
 type IncrementInputProps = {
   id: string;
-  label: string;
+  label: ReactNode;
   maxValue: number;
   minValue: number;
   name: string;

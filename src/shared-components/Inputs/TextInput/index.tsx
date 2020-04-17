@@ -10,6 +10,7 @@ type BaseInputProps = {
   label: string;
 
   type?: string;
+  vertical?: boolean;
 };
 
 const TextInput: FC<BaseInputProps> = ({
@@ -17,12 +18,13 @@ const TextInput: FC<BaseInputProps> = ({
   id,
   label,
   type = "text",
+  vertical,
   ...rest
 }) => {
   const { register } = useFormContext();
 
   return (
-    <BaseInput name={name} id={id} label={label}>
+    <BaseInput name={name} id={id} label={label} vertical={vertical}>
       <input
         className={styles.input}
         type={type}

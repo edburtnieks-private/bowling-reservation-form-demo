@@ -11,6 +11,9 @@ const App = () => (
     maxDuration={4}
     minLaneCount={1}
     maxLaneCount={1}
+    totalLaneCount={10}
+    minPlayerCount={1}
+    maxPlayerCount={6}
   />
 );
 

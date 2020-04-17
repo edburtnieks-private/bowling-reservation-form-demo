@@ -38,8 +38,11 @@
 
 .componentDisabled {
   background-color: var(--c-lighter);
+  box-shadow: none;
 
+  .button,
   .input {
+    background-color: var(--c-lighter);
     color: var(--c-light);
   }
 }

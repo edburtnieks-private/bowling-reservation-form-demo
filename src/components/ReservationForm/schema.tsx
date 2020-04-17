@@ -1,4 +1,4 @@
-import { object, date, number, string } from "yup";
+import { object, date, number, string, array, bool, ref } from "yup";
 
 const reservationSchema = object().shape({
   date: date()
@@ -24,7 +24,17 @@ const reservationSchema = object().shape({
     .max(1, "Maximum lane count is 1")
     .required("Provide lane count"),
   name: string().required("Provide name"),
-  phone: string().required("Provide phone")
+  phone: string().required("Provide phone"),
+  playerCount: number()
+    .truncate()
+    .min(1, "Minimum player count is 1")
+    .max(6, "Maximum player count is 6"),
+  isShoes: bool(),
+  shoeCount: number()
+    .truncate()
+    .min(1, "Minimum shoe count is 1")
+    .max(ref("playerCount"), "Shoe count can't be more than player count"),
+  players: array(string()).max(6)
 });
 
 export { reservationSchema };
