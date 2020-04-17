@@ -10,8 +10,8 @@ const reservationSchema = object().shape({
     .required("Provide date"),
   startTime: number()
     .truncate()
-    .min(11, "We start working at 11:00")
-    .max(23, "We work till 23:00")
+    .min(11, "First reservation available at 11.00")
+    .max(23, "Last reservation available at 23:00")
     .required("Provide strart time"),
   duration: number()
     .truncate()
@@ -21,7 +21,7 @@ const reservationSchema = object().shape({
   laneCount: number()
     .truncate()
     .min(1, "Minimum lane count is 1")
-    .max(10, "Maximum lane count is 10")
+    .max(1, "Maximum lane count is 1")
     .required("Provide lane count"),
   name: string().required("Provide name"),
   phone: string().required("Provide phone")

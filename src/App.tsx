@@ -10,7 +10,7 @@ const App = () => (
     minDuration={1}
     maxDuration={4}
     minLaneCount={1}
-    maxLaneCount={10}
+    maxLaneCount={1}
   />
 );
 
