@@ -1,6 +1,14 @@
 .field {
   @media (min-width: 768px) {
     display: inline-block;
+
+    &.textInput {
+      max-width: 200px;
+    }
+
+    &.incrementInput {
+      max-width: 120px;
+    }
   }
 
   &.vertical {
@@ -39,10 +47,6 @@
   outline: none;
   padding: var(--s-xs);
   width: 100%;
-
-  @media(min-width: 768px) {
-    max-width: 200px;
-  }
 
   &:hover,
   &:focus {

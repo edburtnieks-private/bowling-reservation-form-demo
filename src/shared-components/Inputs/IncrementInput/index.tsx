@@ -67,7 +67,13 @@ const IncrementInput: FC<IncrementInputProps> = ({
   };
 
   return (
-    <BaseInput name={name} id={id} label={label} vertical={vertical}>
+    <BaseInput
+      name={name}
+      id={id}
+      label={label}
+      vertical={vertical}
+      incrementInput
+    >
       <div
         className={classNames(styles.wrapper, {
           [styles.componentDisabled]: disabled

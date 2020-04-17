@@ -1,8 +1,10 @@
 export interface IBaseInputCss {
   field: string;
-  vertical: string;
-  label: string;
+  incrementInput: string;
   input: string;
+  label: string;
+  textInput: string;
+  vertical: string;
 }
 declare const styles: IBaseInputCss;
 

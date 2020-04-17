@@ -24,7 +24,7 @@ const TextInput: FC<BaseInputProps> = ({
   const { register } = useFormContext();
 
   return (
-    <BaseInput name={name} id={id} label={label} vertical={vertical}>
+    <BaseInput name={name} id={id} label={label} vertical={vertical} textInput>
       <input
         className={styles.input}
         type={type}
