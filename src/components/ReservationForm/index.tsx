@@ -75,7 +75,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
     phone: "",
     lanes: [],
     playerCount: 2,
-    players: Array(2).fill({ name: "" }),
+    players: Array(2).fill(""),
     isShoes: true,
     shoeCount: 2
   };
@@ -130,13 +130,15 @@ const ReservationForm: FC<ReservationFormProps> = ({
   const decrementPlayerCount = (value: number): void => {
     removePlayer(value - 1);
 
-    reservationFormMethods.setValue(
-      "shoeCount",
-      +reservationFormMethods.getValues().shoeCount - 1
-    );
+    if (reservationFormMethods.getValues().shoeCount > 1) {
+      reservationFormMethods.setValue(
+        "shoeCount",
+        +reservationFormMethods.getValues().shoeCount - 1
+      );
+    }
   };
 
-  const incrementPlayerCount = () => {
+  const incrementPlayerCount = (): void => {
     appendPlayer({ name: "players" });
 
     reservationFormMethods.setValue(
@@ -283,7 +285,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   return (
                     <TextInput
                       key={index}
-                      name={`players[${index}].name`}
+                      name={`players[${index}]`}
                       id={`player-${playerIndex}`}
                       label={`Player ${playerIndex}`}
                       vertical
