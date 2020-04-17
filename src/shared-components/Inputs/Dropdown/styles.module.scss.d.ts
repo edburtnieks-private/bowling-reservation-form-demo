@@ -1,11 +1,15 @@
 export interface IDropdownCss {
   active: string;
-  toggle: string;
-  input: string;
+  bottom: string;
+  buttonToggle: string;
   caret: string;
-  content: string;
-  overlay: string;
   closeButton: string;
+  content: string;
+  input: string;
+  inputToggle: string;
+  overlay: string;
+  right: string;
+  wrapper: string;
 }
 declare const styles: IDropdownCss;
 

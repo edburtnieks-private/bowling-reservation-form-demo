@@ -46,6 +46,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   startHour
 }) => {
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
+  const [isMoreDetailsDropdownOpen, setMoreDetailsDropdown] = useState(false);
 
   const defaultValues: ReservationFormData = {
     date: getStartDate(startHour, endHour),
@@ -153,8 +154,23 @@ const ReservationForm: FC<ReservationFormProps> = ({
           <TextInput name="phone" id="phone" label="Phone" type="tel" />
         </div>
 
-        {/* Temporary */}
-        <button>Make reservation</button>
+        <div className={styles.footer}>
+          <Dropdown
+            label="More details"
+            isOpen={isMoreDetailsDropdownOpen}
+            toggleDropdown={() =>
+              setMoreDetailsDropdown(!isMoreDetailsDropdownOpen)
+            }
+            closeDropdown={() => setMoreDetailsDropdown(false)}
+            className={styles.moreDetailsDropdown}
+            position="right"
+          >
+            <TextInput name="temporary" id="temporary" label="Temporary" />
+          </Dropdown>
+
+          {/* Temporary */}
+          <button>Make reservation</button>
+        </div>
       </form>
     </FormContext>
   );

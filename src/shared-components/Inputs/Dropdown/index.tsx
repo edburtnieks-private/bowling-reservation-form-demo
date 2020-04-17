@@ -15,7 +15,9 @@ type DropdownProps = {
   closeDropdown: () => void;
   toggleDropdown: () => void;
 
+  className?: string;
   id?: string;
+  position?: string;
   value?: string;
 };
 
@@ -24,20 +26,29 @@ const Dropdown: FC<DropdownProps> = ({
   label,
   closeDropdown,
   toggleDropdown,
+  className,
   id,
+  position = "bottom",
   value,
   children,
   ...rest
 }) => {
   return (
-    <div className={baseInputStyles.field}>
+    <div
+      className={classNames(
+        baseInputStyles.field,
+        styles.wrapper,
+        { [styles.right]: position === "right" },
+        className
+      )}
+    >
       {value ? (
         <>
           <label className={baseInputStyles.label} htmlFor={id}>
             {label}
           </label>
 
-          <div className={classNames(styles.toggle)}>
+          <div className={classNames(styles.inputToggle)}>
             <input
               type="button"
               className={classNames(baseInputStyles.input, styles.input)}
@@ -47,12 +58,24 @@ const Dropdown: FC<DropdownProps> = ({
               {...rest}
             />
 
-            <Caret className={styles.caret} active={isOpen} />
+            <Caret
+              className={styles.caret}
+              active={isOpen}
+              right={position === "right"}
+            />
           </div>
         </>
       ) : (
-        <InputButton onClick={() => toggleDropdown()}>
-          <span>{value || label}</span>
+        <InputButton
+          className={styles.buttonToggle}
+          onClick={() => toggleDropdown()}
+        >
+          <span>{label}</span>
+          <Caret
+            className={styles.caret}
+            active={isOpen}
+            right={(position = "right")}
+          />
         </InputButton>
       )}
 
@@ -60,7 +83,14 @@ const Dropdown: FC<DropdownProps> = ({
         className={classNames(styles.overlay, { [styles.active]: isOpen })}
       />
 
-      <div className={classNames(styles.content, { [styles.active]: isOpen })}>
+      <div
+        className={classNames(
+          styles.content,
+          { [styles.active]: isOpen },
+          { [styles.bottom]: position === "bottom" },
+          { [styles.right]: position === "right" }
+        )}
+      >
         {children}
 
         <InputButton

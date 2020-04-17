@@ -1,8 +1,30 @@
-.toggle {
+.wrapper {
+  @media (min-width: 768px) {
+    &.right {
+      column-gap: var(--s-xs);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      position: relative;
+      width: 100%;
+    }
+  }
+}
+
+.inputToggle,
+.buttonToggle {
   align-items: center;
   display: flex;
-  min-width: 200px;
   position: relative;
+}
+
+.inputToggle {
+  min-width: 200px;
+
+  .caret {
+    pointer-events: none;
+    position: absolute;
+    right: var(--s-xs);
+  }
 }
 
 .input {
@@ -11,10 +33,10 @@
   text-align: left;
 }
 
-.caret {
-  pointer-events: none;
-  position: absolute;
-  right: var(--s-xs);
+.buttonToggle {
+  .caret {
+    margin-left: var(--s-xs);
+  }
 }
 
 .content {
@@ -25,23 +47,31 @@
     border-radius: var(--br-xxs);
     display: block;
     left: 16px;
-    max-height: calc(100% - 32px);
     overflow-y: auto;
+    max-height: calc(100% - 32px);
     padding: var(--s-base);
     position: fixed;
     right: 16px;
     top: 16px;
     z-index: var(--zi-dropdown-content);
-
+    
     @media (min-width: 768px) {
       box-shadow: var(--bs-input);
       left: auto;
-      margin-top: var(--s-xs);
-      max-width: 100%;
       overflow: visible;
+      max-height: none;
       position: absolute;
       right: auto;
       top: auto;
+
+      &.bottom {
+        margin-top: var(--s-xs);
+        max-width: 100%;
+      }
+
+      &.right {
+        grid-column: 2 / -1;
+      }
     }
   }
 }

@@ -1,4 +1,6 @@
 .mainFields {
+  margin-bottom: var(--s-l);
+
   @media (min-width: 768px) {
     display: flex;
   }
@@ -16,5 +18,20 @@
   @media (min-width: 768px) {
     margin-bottom: var(--s-0);
     margin-right: var(--s-l);
+  }
+}
+
+.footer {
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.moreDetailsDropdown {
+  margin-bottom: var(--s-l);
+
+  @media (min-width: 768px) {
+    margin-bottom: var(--s-0);
   }
 }
