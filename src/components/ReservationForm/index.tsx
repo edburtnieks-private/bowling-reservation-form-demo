@@ -116,7 +116,10 @@ const ReservationForm: FC<ReservationFormProps> = ({
     );
   };
 
-  const onLanesChange = (event, index: number) => {
+  const onLanesChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ): void => {
     if (event.target.checked) {
       appendLane({ active: true });
     } else {
@@ -124,8 +127,8 @@ const ReservationForm: FC<ReservationFormProps> = ({
     }
   };
 
-  const decrementPlayerCount = value => {
-    // removePlayer(value - 1);
+  const decrementPlayerCount = (value: number): void => {
+    removePlayer(value - 1);
   };
 
   const incrementPlayerCount = () => {
