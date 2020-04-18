@@ -18,6 +18,7 @@ type IncrementInputProps = {
   name: string;
 
   decrementButtonLabel?: string;
+  describedBy?: string;
   disabled?: boolean;
   incrementButtonLabel?: string;
   vertical?: boolean;
@@ -33,11 +34,13 @@ const IncrementInput: FC<IncrementInputProps> = ({
   minValue,
   name,
   decrementButtonLabel,
+  describedBy,
   disabled,
   incrementButtonLabel,
   vertical,
   decrement,
   increment,
+  children,
   ...rest
 }) => {
   const { register, setValue, getValues, watch } = useFormContext();
@@ -84,6 +87,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
           onClick={handleDecrement}
           disabled={disabled || +watch(name) <= minValue}
           aria-label={decrementButtonLabel}
+          aria-describedby={describedBy}
         >
           <Minus disabled={disabled || +watch(name) <= minValue} />
         </InputButton>
@@ -102,10 +106,13 @@ const IncrementInput: FC<IncrementInputProps> = ({
           onClick={handleIncrement}
           disabled={disabled || +watch(name) >= maxValue}
           aria-label={incrementButtonLabel}
+          aria-describedby={describedBy}
         >
           <Plus disabled={disabled || +watch(name) >= maxValue} />
         </InputButton>
       </div>
+
+      {children}
     </BaseInput>
   );
 };

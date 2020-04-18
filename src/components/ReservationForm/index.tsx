@@ -168,7 +168,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
             toggleDropdown={() =>
               setDateAndTimeDropdown(!isDateAndTimeDropdownOpen)
             }
-            closeDropdown={() => setDateAndTimeDropdown(false)}
+            toggleAriaLabel="date and time"
           >
             <div className={styles.dateAndTimeFields}>
               <div className={styles.calendarWrapper}>
@@ -203,10 +203,24 @@ const ReservationForm: FC<ReservationFormProps> = ({
                     reservationFormMethods.getValues().startTime,
                     maxDuration
                   )}
+                  vertical
                   decrementButtonLabel="Remove hour"
                   incrementButtonLabel="Add hour"
-                  vertical
-                />
+                  describedBy="durationDescription"
+                >
+                  <p id="durationDescription" className="sr-only">
+                    Current duration:
+                    {reservationFormMethods.getValues().duration}{" "}
+                    {+reservationFormMethods.getValues().duration === 1
+                      ? `hour`
+                      : `hours`}{" "}
+                    out of{" "}
+                    {getMaxDuration(
+                      reservationFormMethods.getValues().startTime,
+                      maxDuration
+                    )}
+                  </p>
+                </IncrementInput>
               </div>
             </div>
           </Dropdown>
@@ -219,7 +233,17 @@ const ReservationForm: FC<ReservationFormProps> = ({
             maxValue={maxLaneCount}
             decrementButtonLabel="Remove lane"
             incrementButtonLabel="Add lane"
-          />
+            describedBy="laneCountDescription"
+          >
+            <p id="laneCountDescription" className="sr-only">
+              Current lane count:
+              {reservationFormMethods.getValues().laneCount}{" "}
+              {+reservationFormMethods.getValues().laneCount === 1
+                ? `lane`
+                : `lanes`}{" "}
+              out of {maxLaneCount}
+            </p>
+          </IncrementInput>
 
           <TextInput name="name" id="name" label="Name" />
 
@@ -233,9 +257,9 @@ const ReservationForm: FC<ReservationFormProps> = ({
             toggleDropdown={() =>
               setMoreDetailsDropdown(!isMoreDetailsDropdownOpen)
             }
-            closeDropdown={() => setMoreDetailsDropdown(false)}
             className={styles.moreDetailsDropdown}
             position="right"
+            toggleAriaLabel="more details"
           >
             <div className={styles.moreDetailsDropdownContent}>
               <div>
@@ -263,7 +287,16 @@ const ReservationForm: FC<ReservationFormProps> = ({
                     maxValue={maxPlayerCount}
                     decrement={decrementPlayerCount}
                     increment={incrementPlayerCount}
-                  />
+                    decrementButtonLabel="Remove player"
+                    incrementButtonLabel="Add player"
+                    describedBy="playerCountDescription"
+                  >
+                    <p id="playerCountDescription" className="sr-only">
+                      Current player count:
+                      {reservationFormMethods.getValues().playerCount} out of{" "}
+                      {maxPlayerCount}
+                    </p>
+                  </IncrementInput>
 
                   <IncrementInput
                     name="shoeCount"
@@ -274,7 +307,16 @@ const ReservationForm: FC<ReservationFormProps> = ({
                     minValue={minPlayerCount}
                     maxValue={reservationFormMethods.getValues().playerCount}
                     disabled={!reservationFormMethods.getValues().isShoes}
-                  />
+                    decrementButtonLabel="Remove shoe"
+                    incrementButtonLabel="Add shoe"
+                    describedBy="shoeCountDescription"
+                  >
+                    <p id="shoeCountDescription" className="sr-only">
+                      Current shoe count
+                      {reservationFormMethods.getValues().shoeCount} out of{" "}
+                      {reservationFormMethods.getValues().playerCount}
+                    </p>
+                  </IncrementInput>
                 </div>
               </div>
 

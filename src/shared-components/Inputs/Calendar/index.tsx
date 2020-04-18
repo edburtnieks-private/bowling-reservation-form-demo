@@ -21,7 +21,10 @@ const CalendarInput = ({ name, minDate, ...rest }: CalendarInputProps) => {
     minDetail: "year",
     showFixedNumberOfWeeks: true,
     prevLabel: <Caret left />,
-    nextLabel: <Caret right />
+    nextLabel: <Caret right />,
+    nextAriaLabel: "Next month",
+    prevAriaLabel: "Previous month",
+    navigationAriaLabel: `Change month`
   };
 
   return (

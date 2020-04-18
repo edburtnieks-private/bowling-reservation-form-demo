@@ -8,11 +8,6 @@
 }
 
 .checkbox {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  margin: var(--s-0);
-  outline: 0;
-
   &:checked + .label {
     .customCheckbox::after {
       border-bottom: 1px solid;

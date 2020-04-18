@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import classNames from "classnames";
 import { useFormContext } from "react-hook-form";
 
 import styles from "./styles.module.scss";
@@ -15,7 +16,7 @@ const Checkbox: FC<CheckboxProps> = ({ name, id, label, ...rest }) => {
   return (
     <div className={styles.wrapper}>
       <input
-        className={styles.checkbox}
+        className={classNames("sr-only", styles.checkbox)}
         name={name}
         id={id}
         ref={register}
