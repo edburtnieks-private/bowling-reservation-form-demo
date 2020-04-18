@@ -51,3 +51,9 @@
     margin-bottom: var(--s-0);
   }
 }
+
+.laneInfoWrapper {
+  @media (min-width: 768px) {
+    margin-right: var(--s-l);
+  }
+}

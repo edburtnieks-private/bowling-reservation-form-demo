@@ -1,4 +1,4 @@
-import React, { Fragment, FC, ChangeEvent, useState } from "react";
+import React, { FC, useState } from "react";
 import {
   useForm,
   useFieldArray,
@@ -12,6 +12,7 @@ import { Dropdown } from "../../shared-components/Inputs/Dropdown";
 import { Calendar } from "../../shared-components/Inputs/Calendar";
 import { Select } from "../../shared-components/Inputs/Select";
 import { Checkbox } from "../../shared-components/Inputs/Checkbox";
+import { LaneSelect } from "./LaneSelect";
 
 import styles from "./styles.module.scss";
 
@@ -21,8 +22,7 @@ import {
   getStartTime,
   availableTimes,
   getDuration,
-  getMaxDuration,
-  getLanes
+  getMaxDuration
 } from "./utils";
 import { reservationSchema } from "./schema";
 
@@ -45,7 +45,7 @@ type ReservationFormData = {
   laneCount: number;
   name: string;
   phone: string;
-  lanes: Object[];
+  lanes: number[];
   playerCount: number;
   players: string[];
   isShoes: boolean;
@@ -86,15 +86,6 @@ const ReservationForm: FC<ReservationFormProps> = ({
   });
 
   const {
-    fields: lanes,
-    append: appendLane,
-    remove: removeLane
-  } = useFieldArray({
-    control: reservationFormMethods.control,
-    name: "lanes"
-  });
-
-  const {
     fields: players,
     append: appendPlayer,
     remove: removePlayer
@@ -114,17 +105,6 @@ const ReservationForm: FC<ReservationFormProps> = ({
         )
       )
     );
-  };
-
-  const onLanesChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    index: number
-  ): void => {
-    if (event.target.checked) {
-      appendLane({ active: true });
-    } else {
-      removeLane(index);
-    }
   };
 
   const decrementPlayerCount = (value: number): void => {
@@ -262,21 +242,8 @@ const ReservationForm: FC<ReservationFormProps> = ({
             toggleAriaLabel="more details"
           >
             <div className={styles.moreDetailsDropdownContent}>
-              <div>
-                <div>
-                  {getLanes(totalLaneCount).map((lane, index) => (
-                    <Fragment key={lane}>
-                      <input
-                        type="checkbox"
-                        name={`lanes[${index}].active`}
-                        id={`lane-${lane}`}
-                        ref={reservationFormMethods.register()}
-                        onChange={event => onLanesChange(event, index)}
-                      />
-                      <label htmlFor={`lane-${lane}`}>{lane}</label>
-                    </Fragment>
-                  ))}
-                </div>
+              <div className={styles.laneInfoWrapper}>
+                <LaneSelect totalLaneCount={totalLaneCount} />
 
                 <div className={styles.laneInfo}>
                   <IncrementInput
@@ -321,12 +288,12 @@ const ReservationForm: FC<ReservationFormProps> = ({
               </div>
 
               <div>
-                {players.map((_, index) => {
+                {players.map((player, index) => {
                   const playerIndex = index + 1;
 
                   return (
                     <TextInput
-                      key={index}
+                      key={player.id}
                       name={`players[${index}]`}
                       id={`player-${playerIndex}`}
                       label={`Player ${playerIndex}`}

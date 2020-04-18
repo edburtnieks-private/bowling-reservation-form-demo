@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { BaseInput } from "../BaseInput";
 import styles from "../BaseInput/styles.module.scss";
 
-type BaseInputProps = {
+type TextInputProps = {
   name: string;
   id: string;
   label: string;
@@ -14,7 +14,7 @@ type BaseInputProps = {
   vertical?: boolean;
 };
 
-const TextInput: FC<BaseInputProps> = ({
+const TextInput: FC<TextInputProps> = ({
   name,
   id,
   label,

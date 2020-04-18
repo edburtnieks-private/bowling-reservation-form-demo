@@ -25,6 +25,7 @@ const reservationSchema = object().shape({
     .required("Provide lane count"),
   name: string().required("Provide name"),
   phone: string().required("Provide phone"),
+  lanes: array(number()),
   playerCount: number()
     .truncate()
     .min(1, "Minimum player count is 1")

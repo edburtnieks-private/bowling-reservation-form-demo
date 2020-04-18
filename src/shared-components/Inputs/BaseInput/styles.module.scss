@@ -50,7 +50,7 @@
 
   &:hover,
   &:focus {
-    box-shadow: var(--bs-input-hover), var(--bs-input);
+    box-shadow: var(--bs-input), var(--bs-input-hover);
   }
 
   &:disabled {

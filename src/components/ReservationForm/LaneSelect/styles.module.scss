@@ -1,0 +1,49 @@
+.wrapper {
+  display: grid;
+  grid-gap: var(--s-xs);
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.fieldset {
+  border: none;
+  margin: var(--s-0);
+  padding: var(--s-0);
+}
+
+.legend {
+  cursor: default;
+  font-size: var(--fs-s);
+  padding: var(--s-0) var(--s-0) var(--s-xs);
+}
+
+.checkbox {
+  &:hover,
+  &:focus {
+    + .checkboxLabel {
+      box-shadow: var(--bs-input), var(--bs-input-hover);
+    }
+  }
+
+  &:checked {
+    + .checkboxLabel {
+      background-color: var(--c-green);
+      box-shadow: var(--bs-input);
+      color: var(--c-white);
+    }
+
+    &:hover,
+    &:focus {
+      + .checkboxLabel {
+        background-color: var(--c-green-darker);
+      }
+    }
+  }
+}
+
+.checkboxLabel {
+  border-radius: var(--br-xxs);
+  box-shadow: var(--bs-input);
+  cursor: pointer;
+  line-height: 32px;
+  text-align: center;
+}

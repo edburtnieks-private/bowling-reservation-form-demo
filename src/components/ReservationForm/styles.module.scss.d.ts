@@ -3,6 +3,7 @@ export interface IReservationFormCss {
   dateAndTimeFields: string;
   footer: string;
   laneInfo: string;
+  laneInfoWrapper: string;
   mainFields: string;
   moreDetailsDropdown: string;
   moreDetailsDropdownContent: string;
