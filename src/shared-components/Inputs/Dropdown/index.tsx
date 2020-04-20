@@ -150,7 +150,8 @@ const Dropdown: FC<DropdownProps> = ({
           styles.content,
           { [styles.active]: isOpen },
           { [styles.bottom]: position === "bottom" },
-          { [styles.right]: position === "right" }
+          { [styles.right]: position === "right" },
+          "content"
         )}
         aria-hidden="true"
       >

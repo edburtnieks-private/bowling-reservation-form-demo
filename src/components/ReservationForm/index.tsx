@@ -45,11 +45,11 @@ type ReservationFormData = {
   laneCount: number;
   name: string;
   phone: string;
-  lanes: number[];
+  lane: string;
+  isPlayers: boolean;
   playerCount: number;
-  players: string[];
-  isShoes: boolean;
   shoeCount: number;
+  players: string[];
 };
 
 const ReservationForm: FC<ReservationFormProps> = ({
@@ -73,11 +73,11 @@ const ReservationForm: FC<ReservationFormProps> = ({
     laneCount: minLaneCount,
     name: "",
     phone: "",
-    lanes: [],
-    playerCount: 2,
-    players: Array(2).fill(""),
-    isShoes: true,
-    shoeCount: 2
+    lane: `${Math.floor(Math.random() * totalLaneCount) + 1}`,
+    isPlayers: false,
+    playerCount: minPlayerCount,
+    shoeCount: minPlayerCount,
+    players: Array(minPlayerCount).fill("")
   };
 
   const reservationFormMethods = useForm<ReservationFormData>({
@@ -98,11 +98,8 @@ const ReservationForm: FC<ReservationFormProps> = ({
     reservationFormMethods.setValue(
       "duration",
       getDuration(
-        reservationFormMethods.getValues().duration,
-        getMaxDuration(
-          reservationFormMethods.getValues().startTime,
-          maxDuration
-        )
+        reservationFormMethods.watch("duration"),
+        getMaxDuration(reservationFormMethods.watch("startTime"), maxDuration)
       )
     );
   };
@@ -110,24 +107,25 @@ const ReservationForm: FC<ReservationFormProps> = ({
   const decrementPlayerCount = (value: number): void => {
     removePlayer(value - 1);
 
-    if (reservationFormMethods.getValues().shoeCount > 1) {
+    if (reservationFormMethods.watch("shoeCount") > 0) {
       reservationFormMethods.setValue(
         "shoeCount",
-        +reservationFormMethods.getValues().shoeCount - 1
+        +reservationFormMethods.watch("shoeCount") - 1
       );
     }
   };
 
-  const incrementPlayerCount = (): void => {
-    appendPlayer({ name: "players" });
+  const incrementPlayerCount = (value: number): void => {
+    appendPlayer({ player: value });
 
     reservationFormMethods.setValue(
       "shoeCount",
-      +reservationFormMethods.getValues().shoeCount + 1
+      +reservationFormMethods.watch("shoeCount") + 1
     );
   };
 
   const onSubmit = (data: ReservationFormData) => {
+    // TODO: Check data inside form and return new data
     console.log({
       ...data
     });
@@ -180,7 +178,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   label="Duration (h)"
                   minValue={minDuration}
                   maxValue={getMaxDuration(
-                    reservationFormMethods.getValues().startTime,
+                    reservationFormMethods.watch("startTime"),
                     maxDuration
                   )}
                   vertical
@@ -190,13 +188,13 @@ const ReservationForm: FC<ReservationFormProps> = ({
                 >
                   <p id="durationDescription" className="sr-only">
                     Current duration:
-                    {reservationFormMethods.getValues().duration}{" "}
-                    {+reservationFormMethods.getValues().duration === 1
+                    {reservationFormMethods.watch("duration")}{" "}
+                    {+reservationFormMethods.watch("duration") === 1
                       ? `hour`
                       : `hours`}{" "}
                     out of{" "}
                     {getMaxDuration(
-                      reservationFormMethods.getValues().startTime,
+                      reservationFormMethods.watch("startTime"),
                       maxDuration
                     )}
                   </p>
@@ -217,8 +215,8 @@ const ReservationForm: FC<ReservationFormProps> = ({
           >
             <p id="laneCountDescription" className="sr-only">
               Current lane count:
-              {reservationFormMethods.getValues().laneCount}{" "}
-              {+reservationFormMethods.getValues().laneCount === 1
+              {reservationFormMethods.watch("laneCount")}{" "}
+              {+reservationFormMethods.watch("laneCount") === 1
                 ? `lane`
                 : `lanes`}{" "}
               out of {maxLaneCount}
@@ -249,9 +247,16 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   <IncrementInput
                     name="playerCount"
                     id="player-count"
-                    label="Players"
+                    label={
+                      <Checkbox
+                        name="isPlayers"
+                        id="is-players"
+                        label="Players"
+                      />
+                    }
                     minValue={minPlayerCount}
                     maxValue={maxPlayerCount}
+                    disabled={!reservationFormMethods.watch("isPlayers")}
                     decrement={decrementPlayerCount}
                     increment={incrementPlayerCount}
                     decrementButtonLabel="Remove player"
@@ -260,7 +265,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   >
                     <p id="playerCountDescription" className="sr-only">
                       Current player count:
-                      {reservationFormMethods.getValues().playerCount} out of{" "}
+                      {reservationFormMethods.watch("playerCount")} out of{" "}
                       {maxPlayerCount}
                     </p>
                   </IncrementInput>
@@ -268,25 +273,22 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   <IncrementInput
                     name="shoeCount"
                     id="shoe-count"
-                    label={
-                      <Checkbox name="isShoes" id="is-shoes" label="Shoes" />
-                    }
-                    minValue={minPlayerCount}
-                    maxValue={reservationFormMethods.getValues().playerCount}
-                    disabled={!reservationFormMethods.getValues().isShoes}
+                    label="Shoes"
+                    minValue={0}
+                    maxValue={reservationFormMethods.watch("playerCount")}
+                    disabled={!reservationFormMethods.watch("isPlayers")}
                     decrementButtonLabel="Remove shoe"
                     incrementButtonLabel="Add shoe"
                     describedBy="shoeCountDescription"
                   >
                     <p id="shoeCountDescription" className="sr-only">
-                      Current shoe count
-                      {reservationFormMethods.getValues().shoeCount} out of{" "}
-                      {reservationFormMethods.getValues().playerCount}
+                      Current shoe count:
+                      {reservationFormMethods.watch("shoeCount")} out of{" "}
+                      {reservationFormMethods.watch("playerCount")}
                     </p>
                   </IncrementInput>
                 </div>
               </div>
-
               <div>
                 {players.map((player, index) => {
                   const playerIndex = index + 1;
@@ -297,6 +299,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                       name={`players[${index}]`}
                       id={`player-${playerIndex}`}
                       label={`Player ${playerIndex}`}
+                      disabled={!reservationFormMethods.watch("isPlayers")}
                       vertical
                       fieldArray
                     />

@@ -16,16 +16,16 @@
   padding: var(--s-0) var(--s-0) var(--s-xs);
 }
 
-.checkbox {
+.radio {
   &:hover,
   &:focus {
-    + .checkboxLabel {
+    + .radioLabel {
       box-shadow: var(--bs-input), var(--bs-input-hover);
     }
   }
 
-  &:checked {
-    + .checkboxLabel {
+  &:checked:enabled {
+    + .radioLabel {
       background-color: var(--c-green);
       box-shadow: var(--bs-input);
       color: var(--c-white);
@@ -33,14 +33,23 @@
 
     &:hover,
     &:focus {
-      + .checkboxLabel {
+      + .radioLabel {
         background-color: var(--c-green-darker);
       }
     }
   }
+
+  &:disabled {
+    + .radioLabel {
+      background-color: var(--c-lighter);
+      box-shadow: none;
+      color: var(--c-light);
+      cursor: not-allowed;
+    }
+  }
 }
 
-.checkboxLabel {
+.radioLabel {
   border-radius: var(--br-xxs);
   box-shadow: var(--bs-input);
   cursor: pointer;

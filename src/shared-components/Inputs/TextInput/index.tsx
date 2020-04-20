@@ -9,6 +9,7 @@ type TextInputProps = {
   id: string;
   label: string;
 
+  disabled?: boolean;
   fieldArray?: boolean;
   type?: string;
   vertical?: boolean;
@@ -18,6 +19,7 @@ const TextInput: FC<TextInputProps> = ({
   name,
   id,
   label,
+  disabled,
   fieldArray,
   type = "text",
   vertical,
@@ -32,6 +34,7 @@ const TextInput: FC<TextInputProps> = ({
         type={type}
         name={name}
         id={id}
+        disabled={disabled}
         ref={fieldArray ? register() : register}
         {...rest}
       />

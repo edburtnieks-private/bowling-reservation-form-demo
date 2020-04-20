@@ -18,6 +18,7 @@ type IncrementInputProps = {
   name: string;
 
   decrementButtonLabel?: string;
+  defaultValue?: string | number | string[];
   describedBy?: string;
   disabled?: boolean;
   incrementButtonLabel?: string;
@@ -34,6 +35,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
   minValue,
   name,
   decrementButtonLabel,
+  defaultValue,
   describedBy,
   disabled,
   incrementButtonLabel,
@@ -95,6 +97,7 @@ const IncrementInput: FC<IncrementInputProps> = ({
         <input
           className={classNames(baseInputStyles.input, styles.input)}
           name={name}
+          defaultValue={defaultValue}
           id={id}
           ref={register}
           disabled

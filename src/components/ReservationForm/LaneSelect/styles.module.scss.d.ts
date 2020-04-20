@@ -1,10 +1,10 @@
-export interface ILaneCheckboxCss {
-  checkbox: string;
-  checkboxLabel: string;
+export interface ILaneSelectCss {
+  radio: string;
+  radioLabel: string;
   fieldset: string;
   legend: string;
   wrapper: string;
 }
-declare const styles: ILaneCheckboxCss;
+declare const styles: ILaneSelectCss;
 
 export default styles;
