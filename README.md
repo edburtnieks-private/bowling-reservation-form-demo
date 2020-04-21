@@ -1,6 +1,6 @@
 # Bowling reservation form demo
 
-React example project using Typescript
+React example project using Typescript and SASS
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
