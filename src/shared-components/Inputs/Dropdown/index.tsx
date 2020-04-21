@@ -5,6 +5,8 @@ import { InputButton } from "../InputButton";
 import { Caret } from "../../Icons/Caret";
 import { Cross } from "../../Icons/Cross";
 
+import { setAriaAttributes, trapFocus } from "./utils";
+
 import baseInputStyles from "../BaseInput/styles.module.scss";
 import styles from "./styles.module.scss";
 
@@ -30,7 +32,7 @@ const Dropdown: FC<DropdownProps> = ({
   id,
   position = "bottom",
   secondary = false,
-  toggleAriaLabel,
+  toggleAriaLabel = "",
   value,
   children,
   ...rest
@@ -41,49 +43,12 @@ const Dropdown: FC<DropdownProps> = ({
 
   const onToggleDropdown = (): void => {
     toggleDropdown();
-
-    if (!isOpen) {
-      if (buttonToggle.current) {
-        buttonToggle.current.setAttribute("aria-expanded", "true");
-        buttonToggle.current.setAttribute(
-          "aria-label",
-          `Hide ${toggleAriaLabel}`
-        );
-      }
-
-      if (inputToggle.current) {
-        inputToggle.current.setAttribute("aria-expanded", "true");
-        inputToggle.current.setAttribute(
-          "aria-label",
-          `Hide ${toggleAriaLabel}`
-        );
-      }
-
-      if (dropdownContent.current) {
-        dropdownContent.current.setAttribute("aria-hidden", "false");
-        dropdownContent.current.focus();
-      }
-    } else {
-      if (buttonToggle.current) {
-        buttonToggle.current.setAttribute("aria-expanded", "false");
-        buttonToggle.current.setAttribute(
-          "aria-label",
-          `Show ${toggleAriaLabel}`
-        );
-      }
-
-      if (inputToggle.current) {
-        inputToggle.current.setAttribute("aria-expanded", "false");
-        inputToggle.current.setAttribute(
-          "aria-label",
-          `Show ${toggleAriaLabel}`
-        );
-      }
-
-      if (dropdownContent.current) {
-        dropdownContent.current.setAttribute("aria-hidden", "true");
-      }
-    }
+    setAriaAttributes(isOpen, toggleAriaLabel, {
+      buttonToggle,
+      inputToggle,
+      dropdownContent
+    });
+    trapFocus(isOpen, dropdownContent);
   };
 
   return (
