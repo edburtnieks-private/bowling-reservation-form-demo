@@ -12,6 +12,7 @@ import { Dropdown } from "../../shared-components/Inputs/Dropdown";
 import { Calendar } from "../../shared-components/Inputs/Calendar";
 import { Select } from "../../shared-components/Inputs/Select";
 import { Checkbox } from "../../shared-components/Inputs/Checkbox";
+import { Button } from "../../shared-components/Button";
 import { LaneSelect } from "./LaneSelect";
 
 import styles from "./styles.module.scss";
@@ -238,6 +239,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
             className={styles.moreDetailsDropdown}
             position="right"
             toggleAriaLabel="more details"
+            secondary
           >
             <div className={styles.moreDetailsDropdownContent}>
               <div className={styles.laneInfoWrapper}>
@@ -309,8 +311,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
             </div>
           </Dropdown>
 
-          {/* Temporary */}
-          <button>Make reservation</button>
+          <Button type="submit">Make reservation</Button>
         </div>
       </form>
     </FormContext>

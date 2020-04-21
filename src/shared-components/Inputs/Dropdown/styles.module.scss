@@ -38,6 +38,14 @@
   .caret {
     margin-left: var(--s-xs);
   }
+
+  &.secondary {
+    font-size: inherit;
+
+    @media (min-width: 768px) {
+      font-size: var(--fs-s);
+    }
+  }
 }
 
 .content {

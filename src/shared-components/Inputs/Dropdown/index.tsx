@@ -17,6 +17,7 @@ type DropdownProps = {
   className?: string;
   id?: string;
   position?: "bottom" | "right";
+  secondary?: boolean;
   toggleAriaLabel?: string;
   value?: string;
 };
@@ -28,6 +29,7 @@ const Dropdown: FC<DropdownProps> = ({
   className,
   id,
   position = "bottom",
+  secondary = false,
   toggleAriaLabel,
   value,
   children,
@@ -122,7 +124,9 @@ const Dropdown: FC<DropdownProps> = ({
         </>
       ) : (
         <InputButton
-          className={styles.buttonToggle}
+          className={classNames(styles.buttonToggle, {
+            [styles.secondary]: secondary
+          })}
           onClick={onToggleDropdown}
           ref={buttonToggle}
           aria-label={`Show ${toggleAriaLabel}`}

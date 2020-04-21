@@ -9,6 +9,7 @@ export interface IDropdownCss {
   inputToggle: string;
   overlay: string;
   right: string;
+  secondary: string;
   wrapper: string;
 }
 declare const styles: IDropdownCss;

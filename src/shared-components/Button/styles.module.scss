@@ -1,0 +1,25 @@
+.button {
+  border-radius: var(--br-xxs);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-bold);
+  padding: var(--s-s) var(--s-base);
+  width: 100%;
+
+  @media (min-width: 768px) {
+    padding: var(--s-xs) var(--s-base);
+  }
+
+  &.primary {
+    background-color: var(--c-green);
+    color: var(--c-white);
+
+    &:hover,
+    &:focus {
+      background-color: var(--c-green-darker);
+      text-decoration: underline;
+    }
+  }
+}
