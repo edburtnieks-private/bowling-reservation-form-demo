@@ -1,6 +1,6 @@
 # Bowling reservation form demo
 
-Fully responsive and accessible React example project written in TypeScript using SASS and CSS Modules
+Fully responsive and accessible React example project written in TypeScript using SASS and CSS Modules.
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
