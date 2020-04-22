@@ -6,7 +6,7 @@ Live site - http://bowling-reservation-form-demo.now.sh/
 
 Codesandbox link - https://codesandbox.io/s/bowling-reservation-form-demo-hhkq1
 
-## Technologies and tools
+## Technologies stack
 
 Project boilerplate was generated using [codesandbox.io](https://codesandbox.io/) React template.
 
