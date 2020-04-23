@@ -1,3 +1,5 @@
+![bowling reservation form](https://user-images.githubusercontent.com/47947787/80149845-0312cc00-85c0-11ea-8789-c6bd116ba8f6.png)
+
 # Bowling reservation form demo
 
 Fully responsive and accessible React example project written in TypeScript using SASS and CSS Modules.
