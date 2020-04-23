@@ -37,20 +37,22 @@ type ReservationFormProps = {
   minPlayerCount: number;
   startHour: number;
   totalLaneCount: number;
+  handleSubmit: (value: Object) => void;
 };
 
 type ReservationFormData = {
   date: Date;
-  startTime: number;
   duration: number;
+  lane: string;
   laneCount: number;
   name: string;
   phone: string;
-  lane: string;
-  isPlayers: boolean;
-  playerCount: number;
-  shoeCount: number;
-  players: string[];
+  startTime: number;
+
+  isPlayers?: boolean;
+  playerCount?: number;
+  players?: string[];
+  shoeCount?: number;
 };
 
 const ReservationForm: FC<ReservationFormProps> = ({
@@ -62,23 +64,24 @@ const ReservationForm: FC<ReservationFormProps> = ({
   minLaneCount,
   minPlayerCount,
   startHour,
-  totalLaneCount
+  totalLaneCount,
+  handleSubmit
 }) => {
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
   const [isMoreDetailsDropdownOpen, setMoreDetailsDropdown] = useState(false);
 
   const defaultValues: ReservationFormData = {
     date: getStartDate(startHour, endHour),
-    startTime: getStartTime(startHour, endHour),
     duration: minDuration,
+    isPlayers: false,
+    lane: `${Math.floor(Math.random() * totalLaneCount) + 1}`,
     laneCount: minLaneCount,
     name: "",
     phone: "",
-    lane: `${Math.floor(Math.random() * totalLaneCount) + 1}`,
-    isPlayers: false,
     playerCount: minPlayerCount,
+    players: Array(minPlayerCount).fill(""),
     shoeCount: minPlayerCount,
-    players: Array(minPlayerCount).fill("")
+    startTime: getStartTime(startHour, endHour)
   };
 
   const reservationFormMethods = useForm<ReservationFormData>({
@@ -108,28 +111,43 @@ const ReservationForm: FC<ReservationFormProps> = ({
   const decrementPlayerCount = (value: number): void => {
     removePlayer(value - 1);
 
-    if (reservationFormMethods.watch("shoeCount") > 0) {
-      reservationFormMethods.setValue(
-        "shoeCount",
-        +reservationFormMethods.watch("shoeCount") - 1
-      );
+    const shoeCount = reservationFormMethods.watch("shoeCount");
+
+    if (shoeCount) {
+      if (+shoeCount > 0) {
+        reservationFormMethods.setValue("shoeCount", +shoeCount - 1);
+      }
     }
   };
 
-  const incrementPlayerCount = (value: number): void => {
-    appendPlayer({ player: value });
+  const incrementPlayerCount = (): void => {
+    appendPlayer({ value: "" });
 
-    reservationFormMethods.setValue(
-      "shoeCount",
-      +reservationFormMethods.watch("shoeCount") + 1
-    );
+    const shoeCount = reservationFormMethods.watch("shoeCount");
+
+    if (shoeCount) {
+      reservationFormMethods.setValue("shoeCount", +shoeCount + 1);
+    }
   };
 
   const onSubmit = (data: ReservationFormData) => {
-    // TODO: Check data inside form and return new data
-    console.log({
-      ...data
-    });
+    const reservationData: ReservationFormData = {
+      date: data.date,
+      startTime: data.startTime,
+      duration: data.duration,
+      laneCount: data.laneCount,
+      name: data.name,
+      phone: data.phone,
+      lane: data.lane
+    };
+
+    if (data.isPlayers) {
+      reservationData.playerCount = data.playerCount;
+      reservationData.shoeCount = data.shoeCount;
+      reservationData.players = data.players;
+    }
+
+    handleSubmit(reservationData);
   };
 
   return (
@@ -277,7 +295,10 @@ const ReservationForm: FC<ReservationFormProps> = ({
                     id="shoe-count"
                     label="Shoes"
                     minValue={0}
-                    maxValue={reservationFormMethods.watch("playerCount")}
+                    maxValue={
+                      reservationFormMethods.watch("playerCount") ||
+                      maxPlayerCount
+                    }
                     disabled={!reservationFormMethods.watch("isPlayers")}
                     decrementButtonLabel="Remove shoe"
                     incrementButtonLabel="Add shoe"
