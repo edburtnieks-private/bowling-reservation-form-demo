@@ -72,14 +72,17 @@ body {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  padding-left: var(--s-base);
-  padding-right: var(--s-base);
+  padding: var(--s-l) var(--s-base);
 }
 
 #root {
   @media (max-width: 768px) {
     width: 100%;
   }
+}
+
+.result-wrapper {
+  padding-top: var(--s-l);
 }
 
 // https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034
@@ -96,3 +99,4 @@ body {
 	width: 1px !important;
 	white-space: nowrap !important;
 }
+
