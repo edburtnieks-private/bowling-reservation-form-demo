@@ -6,11 +6,9 @@ Fully responsive and accessible React example project written in TypeScript usin
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
-Codesandbox link - https://codesandbox.io/s/bowling-reservation-form-demo-hhkq1
-
 ## Technologies stack
 
-Project boilerplate was generated using [codesandbox.io](https://codesandbox.io/) React template.
+Project boilerplate was generated using [create-react-app](https://create-react-app.dev/).
 
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
