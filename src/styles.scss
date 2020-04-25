@@ -81,7 +81,11 @@ body {
   }
 }
 
-.result-wrapper {
+.header {
+  padding-bottom: var(--s-l);
+}
+
+.result {
   padding-top: var(--s-l);
 }
 
