@@ -1,10 +1,3 @@
-const formatDateAndTime = (date: Date, startTime: number, locale: string): string => {
-  return `${date.toLocaleDateString(locale, {
-    month: "long",
-    day: "numeric"
-  })}, ${startTime}:00`;
-};
-
 const getStartDate = (startHour: number, endHour: number): Date => {
   const today = new Date();
   const tomorrow = new Date(new Date().setDate(today.getDate() + 1));
@@ -63,7 +56,6 @@ const getLanes = (maxLaneCount: number): number[] => {
 };
 
 export {
-  formatDateAndTime,
   getStartDate,
   getStartTime,
   availableTimes,

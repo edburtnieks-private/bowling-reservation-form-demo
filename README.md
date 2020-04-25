@@ -2,7 +2,7 @@
 
 # Bowling reservation form demo
 
-Fully responsive and accessible React example project written in TypeScript using SASS and CSS Modules.
+Fully responsive and accessible multi-language React example project written in TypeScript using SASS and CSS Modules.
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
@@ -18,3 +18,4 @@ Project boilerplate was generated using [create-react-app](https://create-react-
 - [react-calendar](http://projects.wojtekmaj.pl/react-calendar/) - Calendar component
 - [react-hook-form](https://react-hook-form.com/) - React hooks for forms validation
 - [classnames](https://github.com/JedWatson/classnames) - Javascript utility for conditionally joining classNames together
+- [react-intl](https://github.com/formatjs/react-intl) - Internationalization library for React

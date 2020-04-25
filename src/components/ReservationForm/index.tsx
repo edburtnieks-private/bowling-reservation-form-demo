@@ -19,7 +19,6 @@ import { LaneSelect } from "./LaneSelect";
 import styles from "./styles.module.scss";
 
 import {
-  formatDateAndTime,
   getStartDate,
   getStartTime,
   availableTimes,
@@ -68,7 +67,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   totalLaneCount,
   handleSubmit
 }) => {
-  const { locale, formatMessage } = useIntl();
+  const { formatMessage, formatDate } = useIntl();
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
   const [isMoreDetailsDropdownOpen, setMoreDetailsDropdown] = useState(false);
 
@@ -159,11 +158,10 @@ const ReservationForm: FC<ReservationFormProps> = ({
           <Dropdown
             id="date-and-time"
             label={formatMessage({ id: "date_and_time" })}
-            value={formatDateAndTime(
-              reservationFormMethods.watch("date"),
-              reservationFormMethods.watch("startTime"),
-              locale
-            )}
+            value={`${formatDate(reservationFormMethods.watch("date"), {
+              month: "long",
+              day: "numeric"
+            })}, ${reservationFormMethods.watch("startTime")}:00`}
             isOpen={isDateAndTimeDropdownOpen}
             toggleDropdown={() =>
               setDateAndTimeDropdown(!isDateAndTimeDropdownOpen)
