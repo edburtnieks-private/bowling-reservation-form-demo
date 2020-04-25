@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 import "./styles.scss";
 import { ReservationForm } from "./components/ReservationForm";
@@ -22,7 +23,10 @@ const App = () => {
       />
 
       <div className="result-wrapper">
-        <h2>JSON result</h2>
+        <h2>
+          <FormattedMessage id="json_result" />
+        </h2>
+
         <pre>
           <code>{JSON.stringify(reservationData, null, 2)}</code>
         </pre>

@@ -1,5 +1,5 @@
-const formatDateAndTime = (date: Date, startTime: number): string => {
-  return `${date.toLocaleDateString("en", {
+const formatDateAndTime = (date: Date, startTime: number, locale: string): string => {
+  return `${date.toLocaleDateString(locale, {
     month: "long",
     day: "numeric"
   })}, ${startTime}:00`;

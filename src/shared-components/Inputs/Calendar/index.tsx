@@ -1,6 +1,7 @@
 import React from "react";
 import Calendar, { CalendarProps } from "react-calendar";
 import { ErrorMessage } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { Error } from "../../Error";
 import { Caret } from "../../Icons/Caret";
@@ -15,6 +16,8 @@ type CalendarInputProps = {
 };
 
 const CalendarInput = ({ name, minDate, ...rest }: CalendarInputProps) => {
+  const { locale, formatDate, formatMessage } = useIntl();
+
   const options: CalendarProps = {
     minDate: minDate || new Date(),
     maxDate: new Date(new Date().getFullYear(), 11, 31),
@@ -22,9 +25,11 @@ const CalendarInput = ({ name, minDate, ...rest }: CalendarInputProps) => {
     showFixedNumberOfWeeks: true,
     prevLabel: <Caret left />,
     nextLabel: <Caret right />,
-    nextAriaLabel: "Next month",
-    prevAriaLabel: "Previous month",
-    navigationAriaLabel: `Change month`
+    nextAriaLabel: formatMessage({ id: "next_month" }),
+    prevAriaLabel: formatMessage({ id: "previous_month" }),
+    navigationAriaLabel: formatMessage({ id: "change_month" }),
+    locale,
+    formatShortWeekday: (_, date) => formatDate(date, { weekday: 'narrow' }),
   };
 
   return (

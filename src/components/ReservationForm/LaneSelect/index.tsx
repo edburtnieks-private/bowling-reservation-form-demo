@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import classNames from "classnames";
-import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "react-hook-form";
+import { useFormContext, ErrorMessage } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { Error } from "../../../shared-components/Error";
 import { getLanes } from "../utils";
@@ -15,11 +15,13 @@ type LaneRadioProps = {
 };
 
 type LaneSelectProps = {
+  label: string;
   totalLaneCount: number;
 };
 
 const LaneRadio: FC<LaneRadioProps> = ({ lane, disabled }) => {
   const { register } = useFormContext();
+  const { formatMessage } = useIntl();
 
   return (
     <>
@@ -35,7 +37,7 @@ const LaneRadio: FC<LaneRadioProps> = ({ lane, disabled }) => {
       <label
         htmlFor={`lane-${lane}`}
         className={styles.radioLabel}
-        aria-label={`Lane ${lane}`}
+        aria-label={`${formatMessage({ id: "lane" })} ${lane}`}
       >
         {lane}
       </label>
@@ -43,11 +45,11 @@ const LaneRadio: FC<LaneRadioProps> = ({ lane, disabled }) => {
   );
 };
 
-const LaneSelect: FC<LaneSelectProps> = ({ totalLaneCount }) => {
+const LaneSelect: FC<LaneSelectProps> = ({ label, totalLaneCount }) => {
   return (
     <>
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Lane</legend>
+        <legend className={styles.legend}>{label}</legend>
 
         <div className={styles.wrapper}>
           {getLanes(totalLaneCount).map(lane => (

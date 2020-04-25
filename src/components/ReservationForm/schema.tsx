@@ -2,34 +2,33 @@ import { object, date, number, string, array, bool } from "yup";
 
 const reservationSchema = object().shape({
   date: date()
-    .min(new Date(), "Provide date from today")
-    .max(
-      new Date(new Date().getFullYear(), 11, 31),
-      "Can't make reservation for next year"
-    )
-    .required("Provide date"),
+    .min(new Date(), "date_min")
+    .max(new Date(new Date().getFullYear(), 11, 31), "date_max")
+    .required("date_required"),
   startTime: number()
     .truncate()
-    .min(11, "First reservation available at 11.00")
-    .max(23, "Last reservation available at 23:00")
-    .required("Provide strart time"),
+    .min(11, "start_time_min")
+    .max(23, "start_time_max")
+    .required("start_time_required"),
   duration: number()
     .truncate()
-    .min(1, "Minimum duration time is 1h")
-    .max(4, "Maximum duration time is 4h")
-    .required("Provide duration"),
+    .min(1, "duration_min")
+    .max(4, "duration_max")
+    .required("duration_required"),
   laneCount: number()
     .truncate()
-    .min(1, "Minimum lane count is 1")
-    .max(1, "Maximum lane count is 1")
-    .required("Provide lane count"),
-  name: string().required("Provide name"),
-  phone: string().required("Provide phone"),
+    .min(1, "lane_count_min")
+    .max(1, "lane_count_max")
+    .required("lane_count_required"),
+  name: string()
+    .required("name_required"),
+  phoneNumber: string()
+    .required("phone_number_required"),
   lane: number()
     .truncate()
-    .min(1, "Choose lane number between 1 and 10")
-    .max(10, "Choose lane number between 1 and 10")
-    .required("Provide lane number"),
+    .min(1, "lane_number_min")
+    .max(10, "lane_number_max")
+    .required("lane_number_required"),
   isPlayers: bool()
     .notRequired()
     .nullable()

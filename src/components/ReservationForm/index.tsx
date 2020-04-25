@@ -5,6 +5,7 @@ import {
   FormContext,
   Controller
 } from "react-hook-form";
+import { useIntl, FormattedMessage } from "react-intl";
 
 import { TextInput } from "../../shared-components/Inputs/TextInput";
 import { IncrementInput } from "../../shared-components/Inputs/IncrementInput";
@@ -46,7 +47,7 @@ type ReservationFormData = {
   lane: string;
   laneCount: number;
   name: string;
-  phone: string;
+  phoneNumber: string;
   startTime: number;
 
   isPlayers?: boolean;
@@ -67,6 +68,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
   totalLaneCount,
   handleSubmit
 }) => {
+  const { locale, formatMessage } = useIntl();
   const [isDateAndTimeDropdownOpen, setDateAndTimeDropdown] = useState(false);
   const [isMoreDetailsDropdownOpen, setMoreDetailsDropdown] = useState(false);
 
@@ -77,7 +79,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
     lane: `${Math.floor(Math.random() * totalLaneCount) + 1}`,
     laneCount: minLaneCount,
     name: "",
-    phone: "",
+    phoneNumber: "",
     playerCount: minPlayerCount,
     players: Array(minPlayerCount).fill(""),
     shoeCount: minPlayerCount,
@@ -137,7 +139,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
       duration: data.duration,
       laneCount: data.laneCount,
       name: data.name,
-      phone: data.phone,
+      phoneNumber: data.phoneNumber,
       lane: data.lane
     };
 
@@ -156,16 +158,17 @@ const ReservationForm: FC<ReservationFormProps> = ({
         <div className={styles.mainFields}>
           <Dropdown
             id="date-and-time"
-            label="Date and time"
+            label={formatMessage({ id: "date_and_time" })}
             value={formatDateAndTime(
               reservationFormMethods.watch("date"),
-              reservationFormMethods.watch("startTime")
+              reservationFormMethods.watch("startTime"),
+              locale
             )}
             isOpen={isDateAndTimeDropdownOpen}
             toggleDropdown={() =>
               setDateAndTimeDropdown(!isDateAndTimeDropdownOpen)
             }
-            toggleAriaLabel="date and time"
+            toggleAriaLabel={formatMessage({ id: "date_and_time" })}
           >
             <div className={styles.dateAndTimeFields}>
               <div className={styles.calendarWrapper}>
@@ -184,7 +187,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                 <Select
                   name="startTime"
                   id="start-time"
-                  label="Start time"
+                  label={formatMessage({ id: "start_time" })}
                   options={availableTimes(startHour, endHour)}
                   customOptionTextEnd=":00"
                   vertical
@@ -194,24 +197,24 @@ const ReservationForm: FC<ReservationFormProps> = ({
                 <IncrementInput
                   name="duration"
                   id="duration"
-                  label="Duration (h)"
+                  label={`${formatMessage({ id: "duration" })} (h)`}
                   minValue={minDuration}
                   maxValue={getMaxDuration(
                     reservationFormMethods.watch("startTime"),
                     maxDuration
                   )}
                   vertical
-                  decrementButtonLabel="Remove hour"
-                  incrementButtonLabel="Add hour"
+                  decrementButtonLabel={formatMessage({ id: "remove_hour" })}
+                  incrementButtonLabel={formatMessage({ id: "add_hour" })}
                   describedBy="durationDescription"
                 >
                   <p id="durationDescription" className="sr-only">
-                    Current duration:
+                    {formatMessage({ id: "current_duration" })}:{" "}
                     {reservationFormMethods.watch("duration")}{" "}
                     {+reservationFormMethods.watch("duration") === 1
-                      ? `hour`
-                      : `hours`}{" "}
-                    out of{" "}
+                      ? formatMessage({ id: "hour" })
+                      : formatMessage({ id: "hours" })}{" "}
+                    {formatMessage({ id: "out_of" })}{" "}
                     {getMaxDuration(
                       reservationFormMethods.watch("startTime"),
                       maxDuration
@@ -225,43 +228,53 @@ const ReservationForm: FC<ReservationFormProps> = ({
           <IncrementInput
             name="laneCount"
             id="lane-count"
-            label="Lane count"
+            label={formatMessage({ id: "lane_count" })}
             minValue={minLaneCount}
             maxValue={maxLaneCount}
-            decrementButtonLabel="Remove lane"
-            incrementButtonLabel="Add lane"
+            decrementButtonLabel={formatMessage({ id: "remove_lane" })}
+            incrementButtonLabel={formatMessage({ id: "add_lane" })}
             describedBy="laneCountDescription"
           >
             <p id="laneCountDescription" className="sr-only">
-              Current lane count:
+              {formatMessage({ id: "current_lane_count" })}:{" "}
               {reservationFormMethods.watch("laneCount")}{" "}
-              {+reservationFormMethods.watch("laneCount") === 1
-                ? `lane`
-                : `lanes`}{" "}
-              out of {maxLaneCount}
+              {formatMessage({ id: "out_of" })}{" "}
+              {maxLaneCount}
             </p>
           </IncrementInput>
 
-          <TextInput name="name" id="name" label="Name" />
+          <TextInput
+            name="name"
+            id="name"
+            label={formatMessage({ id: "name" })}
+          />
 
-          <TextInput name="phone" id="phone" label="Phone" type="tel" />
+          <TextInput
+            type="tel"
+            name="phoneNumber"
+            id="phone-number"
+            label={formatMessage({ id: "phone_number" })}
+          />
         </div>
 
         <div className={styles.footer}>
           <Dropdown
-            label="More details"
+            label={formatMessage({ id: "more_details" })}
             isOpen={isMoreDetailsDropdownOpen}
             toggleDropdown={() =>
               setMoreDetailsDropdown(!isMoreDetailsDropdownOpen)
             }
             className={styles.moreDetailsDropdown}
             position="right"
-            toggleAriaLabel="more details"
+            toggleAriaLabel={formatMessage({ id: "more_details" })}
             secondary
           >
             <div className={styles.moreDetailsDropdownContent}>
               <div className={styles.laneInfoWrapper}>
-                <LaneSelect totalLaneCount={totalLaneCount} />
+                <LaneSelect
+                  label={formatMessage({ id: "lane_number" })}
+                  totalLaneCount={totalLaneCount}
+                />
 
                 <div className={styles.laneInfo}>
                   <IncrementInput
@@ -271,7 +284,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                       <Checkbox
                         name="isPlayers"
                         id="is-players"
-                        label="Players"
+                        label={formatMessage({ id: "players" })}
                       />
                     }
                     minValue={minPlayerCount}
@@ -279,13 +292,14 @@ const ReservationForm: FC<ReservationFormProps> = ({
                     disabled={!reservationFormMethods.watch("isPlayers")}
                     decrement={decrementPlayerCount}
                     increment={incrementPlayerCount}
-                    decrementButtonLabel="Remove player"
-                    incrementButtonLabel="Add player"
+                    decrementButtonLabel={formatMessage({ id: "remove_player" })}
+                    incrementButtonLabel={formatMessage({ id: "add_player" })}
                     describedBy="playerCountDescription"
                   >
                     <p id="playerCountDescription" className="sr-only">
-                      Current player count:
-                      {reservationFormMethods.watch("playerCount")} out of{" "}
+                      {formatMessage({ id: "current_player_count" })}:{" "}
+                      {reservationFormMethods.watch("playerCount")}{" "}
+                      {formatMessage({ id: "out_of" })}{" "}
                       {maxPlayerCount}
                     </p>
                   </IncrementInput>
@@ -293,20 +307,21 @@ const ReservationForm: FC<ReservationFormProps> = ({
                   <IncrementInput
                     name="shoeCount"
                     id="shoe-count"
-                    label="Shoes"
+                    label={formatMessage({ id: "shoes" })}
                     minValue={0}
                     maxValue={
                       reservationFormMethods.watch("playerCount") ||
                       maxPlayerCount
                     }
                     disabled={!reservationFormMethods.watch("isPlayers")}
-                    decrementButtonLabel="Remove shoe"
-                    incrementButtonLabel="Add shoe"
+                    decrementButtonLabel={formatMessage({ id: "remove_shoe" })}
+                    incrementButtonLabel={formatMessage({ id: "add_shoe" })}
                     describedBy="shoeCountDescription"
                   >
                     <p id="shoeCountDescription" className="sr-only">
-                      Current shoe count:
-                      {reservationFormMethods.watch("shoeCount")} out of{" "}
+                      {formatMessage({ id: "current_shoe_count" })}:{" "}
+                      {reservationFormMethods.watch("shoeCount")}{" "}
+                      {formatMessage({ id: "out_of" })}{" "}
                       {reservationFormMethods.watch("playerCount")}
                     </p>
                   </IncrementInput>
@@ -321,7 +336,7 @@ const ReservationForm: FC<ReservationFormProps> = ({
                       key={player.id}
                       name={`players[${index}]`}
                       id={`player-${playerIndex}`}
-                      label={`Player ${playerIndex}`}
+                      label={`${formatMessage({ id: "player" })} ${playerIndex}`}
                       disabled={!reservationFormMethods.watch("isPlayers")}
                       vertical
                       fieldArray
@@ -332,7 +347,9 @@ const ReservationForm: FC<ReservationFormProps> = ({
             </div>
           </Dropdown>
 
-          <Button type="submit">Make reservation</Button>
+          <Button type="submit">
+            <FormattedMessage id="make_reservation" />
+          </Button>
         </div>
       </form>
     </FormContext>

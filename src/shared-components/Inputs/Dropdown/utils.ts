@@ -7,6 +7,8 @@ type Elements = {
 export const setAriaAttributes = (
   isOpen: boolean,
   toggleAriaLabel: string,
+  showAriaLabel: string,
+  hideAriaLabel: string,
   { buttonToggle, inputToggle, dropdownContent }: Elements
 ): void => {
   if (!isOpen) {
@@ -14,13 +16,13 @@ export const setAriaAttributes = (
       buttonToggle.current.setAttribute("aria-expanded", "true");
       buttonToggle.current.setAttribute(
         "aria-label",
-        `Hide ${toggleAriaLabel}`
+        `${hideAriaLabel} ${toggleAriaLabel}`
       );
     }
 
     if (inputToggle.current) {
       inputToggle.current.setAttribute("aria-expanded", "true");
-      inputToggle.current.setAttribute("aria-label", `Hide ${toggleAriaLabel}`);
+      inputToggle.current.setAttribute("aria-label", `${hideAriaLabel} ${toggleAriaLabel}`);
     }
 
     if (dropdownContent.current) {
@@ -31,13 +33,13 @@ export const setAriaAttributes = (
       buttonToggle.current.setAttribute("aria-expanded", "false");
       buttonToggle.current.setAttribute(
         "aria-label",
-        `Show ${toggleAriaLabel}`
+        `${showAriaLabel} ${toggleAriaLabel}`
       );
     }
 
     if (inputToggle.current) {
       inputToggle.current.setAttribute("aria-expanded", "false");
-      inputToggle.current.setAttribute("aria-label", `Show ${toggleAriaLabel}`);
+      inputToggle.current.setAttribute("aria-label", `${showAriaLabel} ${toggleAriaLabel}`);
     }
 
     if (dropdownContent.current) {

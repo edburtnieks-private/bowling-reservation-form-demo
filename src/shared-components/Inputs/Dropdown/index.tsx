@@ -1,5 +1,6 @@
 import React, { FC, useRef } from "react";
 import classNames from "classnames";
+import { useIntl } from "react-intl";
 
 import { InputButton } from "../InputButton";
 import { Caret } from "../../Icons/Caret";
@@ -37,17 +38,24 @@ const Dropdown: FC<DropdownProps> = ({
   children,
   ...rest
 }) => {
+  const { formatMessage } = useIntl();
   const buttonToggle = useRef<HTMLButtonElement>(null);
   const inputToggle = useRef<HTMLInputElement>(null);
   const dropdownContent = useRef<HTMLDivElement>(null);
 
   const onToggleDropdown = (): void => {
     toggleDropdown();
-    setAriaAttributes(isOpen, toggleAriaLabel, {
-      buttonToggle,
-      inputToggle,
-      dropdownContent
-    });
+    setAriaAttributes(
+      isOpen,
+      toggleAriaLabel,
+      formatMessage({ id: "show" }),
+      formatMessage({ id: "hide" }),
+      {
+        buttonToggle,
+        inputToggle,
+        dropdownContent
+      }
+    );
     trapFocus(isOpen, dropdownContent);
   };
 
@@ -74,7 +82,7 @@ const Dropdown: FC<DropdownProps> = ({
               value={value}
               onClick={onToggleDropdown}
               ref={inputToggle}
-              aria-label={`Show ${toggleAriaLabel}`}
+              aria-label={`${formatMessage({ id: "show" })} ${toggleAriaLabel}`}
               aria-expanded="false"
               aria-controls="dropdownContent"
               {...rest}
@@ -94,7 +102,7 @@ const Dropdown: FC<DropdownProps> = ({
           })}
           onClick={onToggleDropdown}
           ref={buttonToggle}
-          aria-label={`Show ${toggleAriaLabel}`}
+          aria-label={`${formatMessage({ id: "show" })} ${toggleAriaLabel}`}
           aria-expanded="false"
           aria-controls="dropdownContent"
           {...rest}
@@ -129,7 +137,7 @@ const Dropdown: FC<DropdownProps> = ({
         <InputButton
           className={styles.closeButton}
           onClick={onToggleDropdown}
-          aria-label={`Hide ${toggleAriaLabel}`}
+          aria-label={`${formatMessage({ id: "hide" })} ${toggleAriaLabel}`}
           aria-expanded="true"
           aria-controls="dropdownContent"
         >
