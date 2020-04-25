@@ -3,6 +3,7 @@ import { IntlProvider, FormattedMessage } from "react-intl";
 
 import { ReservationForm } from "./components/ReservationForm";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
+import { Links } from "./components/Links";
 
 import en from "./translations/en.json";
 import lv from "./translations/lv.json";
@@ -25,28 +26,34 @@ const App = () => {
         <LanguageSwitcher setLocale={setLocale} />
       </header>
 
-      <ReservationForm
-        startHour={11}
-        endHour={24}
-        minDuration={1}
-        maxDuration={4}
-        minLaneCount={1}
-        maxLaneCount={1}
-        totalLaneCount={10}
-        minPlayerCount={1}
-        maxPlayerCount={6}
-        handleSubmit={setReservationData}
-      />
+      <main className="main">
+        <ReservationForm
+          startHour={11}
+          endHour={24}
+          minDuration={1}
+          maxDuration={4}
+          minLaneCount={1}
+          maxLaneCount={1}
+          totalLaneCount={10}
+          minPlayerCount={1}
+          maxPlayerCount={6}
+          handleSubmit={setReservationData}
+        />
 
-      <div className="result">
-        <h2>
-          <FormattedMessage id="json_result" />
-        </h2>
+        <div className="result">
+          <h2>
+            <FormattedMessage id="json_result" />
+          </h2>
 
-        <pre>
-          <code>{JSON.stringify(reservationData, null, 2)}</code>
-        </pre>
-      </div>
+          <pre>
+            <code>{JSON.stringify(reservationData, null, 2)}</code>
+          </pre>
+        </div>
+      </main>
+
+      <footer className="footer">
+        <Links />
+      </footer>
     </IntlProvider>
   );
 };

@@ -66,27 +66,38 @@ body {
   color: var(--c-dark);
   font-family: var(--ff-body);
   margin: var(--s-0);
+  padding: var(--s-0) var(--s-base);
 
-  /* For presentation */
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--s-l) var(--s-base);
+  @media (min-width: 768px) {
+    padding: var(--s-0);
+  }
 }
 
 #root {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.main {
   @media (max-width: 768px) {
     width: 100%;
   }
 }
 
-.header {
-  padding-bottom: var(--s-l);
+.header,
+.footer {
+  padding: var(--s-l) var(--s-0);
 }
 
 .result {
   padding-top: var(--s-l);
+
+  h2 {
+    font-weight: var(--fw-regular);
+  }
 }
 
 // https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034

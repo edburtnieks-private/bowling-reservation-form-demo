@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputButton } from "../../shared-components/Inputs/InputButton";
+import { ReactComponent as GlobeIcon } from "../../assets/icons/globe.svg";
 
 import styles from "./styles.module.scss";
 
@@ -10,19 +10,31 @@ type LanguageSwitcherProps = {
 
 const LanguageSwitcher = ({ setLocale }: LanguageSwitcherProps) => {
   return (
-    <ul className={styles.wrapper}>
-      <li className={styles.listItem}>
-        <InputButton onClick={() => setLocale("en")}>
-          English
-        </InputButton>
-      </li>
+    <div className={styles.wrapper}>
+      <GlobeIcon className={styles.icon} />
 
-      <li className={styles.listItem}>
-        <InputButton onClick={() => setLocale("lv")}>
-          Latviešu
-        </InputButton>
-      </li>
-    </ul>
+      <ul className={styles.list}>
+        <li className={styles.listItem}>
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => setLocale("en")}
+          >
+            English
+          </button>
+        </li>
+
+        <li className={styles.listItem}>
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => setLocale("lv")}
+          >
+            Latviešu
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 };
 

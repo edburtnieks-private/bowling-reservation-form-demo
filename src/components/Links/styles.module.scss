@@ -1,14 +1,6 @@
 .wrapper {
   align-items: center;
   display: flex;
-}
-
-.icon {
-  margin-right: var(--s-xs);
-}
-
-.list {
-  display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -18,13 +10,11 @@
   margin-left: var(--s-l);
 }
 
-.button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  padding: 0;
+.link {
+  align-items: center;
+  color: var(--c-dark);
+  display: flex;
+  text-decoration: none;
 
   &:hover,
   &:focus {
@@ -32,6 +22,10 @@
   }
 
   &:focus {
-    outline: 0;
+    outline: none;
   }
+}
+
+.icon {
+  margin-right: var(--s-xs);
 }
