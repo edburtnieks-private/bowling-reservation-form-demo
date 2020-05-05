@@ -14,7 +14,7 @@
 .listItem + .listItem {
   margin-top: var(--s-l);
 
-  @media (min-width: 768px) {
+  @media (min-width: 400px) {
     margin-left: var(--s-l);
     margin-top: var(--s-0);
   }
