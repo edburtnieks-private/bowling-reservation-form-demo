@@ -6,6 +6,8 @@ Fully responsive and accessible multi-language React example project written in 
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
+Process - https://www.edburtnieks.me/examples/bowling-reservation-form/
+
 ## Technologies stack
 
 Project boilerplate was generated using [create-react-app](https://create-react-app.dev/).
