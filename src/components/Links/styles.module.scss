@@ -1,13 +1,23 @@
 .wrapper {
-  align-items: center;
   display: flex;
+  flex-direction: column;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  @media (min-width: 400px) {
+    align-items: center;
+    flex-direction: row;
+  }
 }
 
 .listItem + .listItem {
-  margin-left: var(--s-l);
+  margin-top: var(--s-l);
+
+  @media (min-width: 768px) {
+    margin-left: var(--s-l);
+    margin-top: var(--s-0);
+  }
 }
 
 .link {
