@@ -6,6 +6,8 @@ Fully responsive and accessible multi-language React example project written in 
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
+Process - https://www.edburtnieks.me/examples/bowling-reservation-form/
+
 ## Technologies stack
 
 Project boilerplate was generated using [create-react-app](https://create-react-app.dev/).
@@ -19,3 +21,9 @@ Project boilerplate was generated using [create-react-app](https://create-react-
 - [react-hook-form](https://react-hook-form.com/) - React hooks for forms validation
 - [classnames](https://github.com/JedWatson/classnames) - Javascript utility for conditionally joining classNames together
 - [react-intl](https://github.com/formatjs/react-intl) - Internationalization library for React
+
+## Screenshots
+
+![example 1](https://user-images.githubusercontent.com/47947787/80893849-a52c6580-8cde-11ea-9b75-dbc6a724efe0.png)
+![example 2](https://user-images.githubusercontent.com/47947787/80893850-a65d9280-8cde-11ea-9fc5-5fe62d9b2010.png)
+![example 3](https://user-images.githubusercontent.com/47947787/80894047-fbe66f00-8cdf-11ea-9da5-aa9fb704410c.png)
