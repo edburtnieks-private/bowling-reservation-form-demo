@@ -1,8 +1,10 @@
-![bowling reservation form](https://user-images.githubusercontent.com/47947787/80149845-0312cc00-85c0-11ea-8789-c6bd116ba8f6.png)
-
 # Bowling reservation form demo
 
 Fully responsive and accessible multi-language React example project written in TypeScript using SASS and CSS Modules.
+
+| Desktop | Mobile |
+| :------ | :----- |
+| ![desktop](https://user-images.githubusercontent.com/47947787/81168438-a63fea00-8f9f-11ea-8893-6910567cbd7c.gif) | ![mobile](https://user-images.githubusercontent.com/47947787/81168523-d38c9800-8f9f-11ea-90a4-b207e4761143.gif) |
 
 Live site - http://bowling-reservation-form-demo.now.sh/
 
