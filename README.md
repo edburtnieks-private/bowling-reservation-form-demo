@@ -10,7 +10,7 @@ Live site - http://bowling-reservation-form-demo.now.sh/
 
 Process - https://www.edburtnieks.me/examples/bowling-reservation-form/
 
-## Technologies stack
+## Technology stack
 
 Project boilerplate was generated using [create-react-app](https://create-react-app.dev/).
 
